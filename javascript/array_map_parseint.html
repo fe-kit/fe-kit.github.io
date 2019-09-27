@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>实现一个单例模式？</title>
+        <title>["1", "2", "3"].map(parseInt) 返回值是什么？</title>
         <link rel="stylesheet" href="../assets/style.css">
     </head>
     
@@ -15,48 +15,23 @@
     <ul class="ul-0"><li class="li-1"><p class="a-2">JAVASCRIPT</p></li><li class="li-1"><p class="a-2">基础知识</p><ul class="ul-2"><li class="li-3"><a href="object_get.html" class="a-4">获取对象路径处的值_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="array.map.parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li></ul></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="singleton.html" class="a-6">单例模式</a></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><a href="proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[发布-订阅模式]</p></li></ul></li></ul></li></ul>
     </aside>
         <main class="page"><div class="page-bd">
-        <h1>实现一个单例模式？</h1>
-<blockquote>
-<p>定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点</p>
-</blockquote>
-<blockquote>
-<p>核心：确保只有一个实例，并提供全局访问</p>
-</blockquote>
-<h3>实现</h3>
+        <h1>[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt) 返回值是什么？</h1>
+<pre><code class="language-javascript"><span class="hljs-keyword">var</span> new_array = arr.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callback</span>(<span class="hljs-params">currentValue[, index[, array]]</span>) </span>{
+<span class="hljs-comment">// Return element for new_array </span>
+}[, thisArg])
+</code></pre>
+<h3>结果</h3>
 <details><summary>点击查看结果</summary>
-<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getSingleton</span>(<span class="hljs-params">fn</span>) </span>{
-    <span class="hljs-keyword">let</span> instance = <span class="hljs-literal">null</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">if</span> (!instance) {
-            instance = fn.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
-        }
-        <span class="hljs-keyword">return</span> instance;
-    }
-}
-
-<span class="hljs-comment">// 调用单例</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">manager</span>(<span class="hljs-params">name</span>) </span>{
-    <span class="hljs-keyword">this</span>.name = name;
-}
-manager.prototype.getName = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
-}
-<span class="hljs-keyword">const</span> singleManager = getSingleton(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>)</span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> manager(name);
-})
-
-singleManager(<span class="hljs-string">'a'</span>).getName();<span class="hljs-comment">// a</span>
-singleManager(<span class="hljs-string">'b'</span>).getName();<span class="hljs-comment">// a</span>
-singleManager(<span class="hljs-string">'c'</span>).getName();<span class="hljs-comment">// a</span>
+<pre><code class="language-javascript"><span class="hljs-number">1</span>, <span class="hljs-literal">NaN</span>, <span class="hljs-literal">NaN</span>
 </code></pre>
 </details>
 <hr>
 <h3>延伸</h3>
 <ul>
-<li>一般用于全局缓存，比如全局window，唯一登录浮窗等</li>
-<li>如果一个类负责连接数据库的线程池、日志记录逻辑等等，此时需要单例模式来保证对象不被重复创建，以达到降低开销的目的。</li>
+<li>map语法</li>
+<li>parseInt(string, radix) 当未指定radix时，不同的实现会产生不同的结果，通常认为其值默认为10</li>
 </ul>
-<div class="page-nav"><a class="pre" href="debounce.html">←什么是防抖和节流？有什么区别？如何实现？</a><a class="next" href="proxy.html">代理模式→</a></div>
+<div class="page-nav"><a class="next" href="object_get.html">获取对象路径处的值_.get(object, a.b.c, default)→</a></div>
         </div>
     </main>
         </div>
