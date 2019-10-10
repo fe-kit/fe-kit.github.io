@@ -48,9 +48,7 @@ a {
     border-right: 1px solid #eaecef;
     overflow-y: auto;
 }
-.sidebar .ul-0 {
-    margin-top: -1.05rem;
-}
+
 .sidebar .a-0,.sidebar .a-2 {
     font-weight: 600;
     position: relative;
@@ -60,7 +58,6 @@ a {
     width: 100%;
     box-sizing: border-box;
     border-left: .25rem solid transparent;
-    border-top: 1px solid rgba(0,0,0,.07);
     margin-top: 1rem;
 }
 
