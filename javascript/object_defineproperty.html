@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>实现一个单例模式？</title>
+        <title>Object.defineProperty 了解有多少？什么是属性描述符？</title>
         <link rel="stylesheet" href="../assets/style.css">
     </head>
     
@@ -15,73 +15,54 @@
     <ul class="ul-0"><li class="li-1"><p class="a-2">JAVASCRIPT</p></li><li class="li-1"><p class="a-2">基础知识</p><ul class="ul-2"><li class="li-3"><a href="object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li></ul></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="singleton.html" class="a-6">单例模式</a></li><li class="li-5"><a href="factory.html" class="a-6">工厂模式</a></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><a href="proxy.html" class="a-6">代理模式</a></li><li class="li-5"><a href="decotators.html" class="a-6">装饰者模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><a href="strategy.html" class="a-6">策略模式</a></li><li class="li-5"><a href="publishsubscribe.html" class="a-6">发布-订阅模式</a></li></ul></li></ul></li></ul>
     </aside>
         <main class="page"><div class="page-bd">
-        <h1>实现一个单例模式？</h1>
+        <h1>Object.defineProperty 了解有多少？什么是属性描述符？</h1>
 <blockquote>
-<p>定义：保护代理可以在代理中直接拒绝对对象的访问；虚拟代理可以延迟访问到真正需要的时候，以节省程序开销；缓存代理</p>
+<p>Object.defineProperty(obj, prop, descriptor)</p>
 </blockquote>
+<h3>核心：该方法允许精确添加或修改对象的属性。</h3>
+<h2>属性描述符</h2>
 <blockquote>
-<p>核心：代理模式可以解决避免对一些对象的直接访问</p>
+<p>数据描述符是一个具有值的属性，该值可能是可写的，也可能不是可写的。<br>
+存取描述符是由 getter-setter 函数对描述的属性。<br>
+描述符必须是这两种形式之一；不能同时是两者。</p>
 </blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">configurable</th>
+<th style="text-align:center">enumerable</th>
+<th style="text-align:center">value</th>
+<th style="text-align:center">writable</th>
+<th style="text-align:center">get</th>
+<th style="text-align:center">set</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数据描述符</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td style="text-align:center">存取描述符</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
-<p>优缺点：代理模式有高度解耦、对象保护、易修改等优点。 同样地，因为是通过“代理”访问对象，因此开销会更大，时间也会更慢。</p>
+<p>记住，这些选项不一定是自身属性，如果是继承来的也要考虑。为了确认保留这些默认值，你可能要在这之前冻结 Object.prototype，明确指定所有的选项，或者通过 Object.create(null)将<strong>proto</strong>属性指向 null。</p>
 </blockquote>
-<h3>实现</h3>
-<details><summary>保护代理:点击查看</summary>
-<pre><code class="language-javascript"><span class="hljs-comment">// 图片懒加载</span>
-<span class="hljs-keyword">const</span> originallyImg = {
-    setSrc(imgNode, src) {
-        imgNode.src = src;
-    }
-}
-<span class="hljs-comment">// 保护代理</span>
-<span class="hljs-keyword">const</span> ProxyImg = {
-    setSrc(imgNode, src){
-        <span class="hljs-keyword">var</span> img = <span class="hljs-keyword">new</span> Image();
-        img.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-            originallyImg.setSrc(imgNode, <span class="hljs-keyword">this</span>.src);
-        };
-        imgNode.src =  <span class="hljs-string">"http://s1.bdstatic.com/r/www/cache/mid/static/xueshu/img/logo_4b1971d.gif"</span>;
-        img.src = src;
-    }
-}
-<span class="hljs-comment">// 调用方式</span>
-<span class="hljs-keyword">let</span> imgNode = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"img"</span>),
-  imgSrc = <span class="hljs-string">" https://www.baidu.com/img/xinshouyedong_4f93b2577f07c164ae8efa0412dd6808.gif"</span>;
-<span class="hljs-built_in">document</span>.body.appendChild(imgNode);
-ProxyImg.setSrc(imgNode, imgSrc);
-</code></pre>
-</details>
-<details><summary>缓存代理:点击查看</summary>
-<pre><code class="language-javascript"><span class="hljs-comment">// 缓存代理</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span> (<span class="hljs-params">...arg</span>) </span>{<span class="hljs-built_in">console</span>.info(<span class="hljs-number">1</span>)
-    <span class="hljs-keyword">return</span> arg.reduce(<span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> x + y);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proxyFunc</span> (<span class="hljs-params">fn</span>) </span>{
-    <span class="hljs-keyword">const</span> cache = {};
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">const</span> key = [...arguments].join(<span class="hljs-string">','</span>);
-        <span class="hljs-keyword">if</span> (cache[key]) {
-            <span class="hljs-keyword">return</span> cache[key];
-        }
-        <span class="hljs-keyword">return</span> cache[key] = fn.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
-    }
-}
-
-<span class="hljs-keyword">const</span> proxyAdd = proxyFunc(add);
-<span class="hljs-built_in">console</span>.info(proxyAdd(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>))
-<span class="hljs-built_in">console</span>.info(proxyAdd(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>))
-</code></pre>
-</details>
-<blockquote>
-<p>虚拟代理 -&gt; <a href="debounce.html">函数防抖节流</a></p>
-</blockquote>
-<hr>
-<h3>延伸</h3>
-<ul>
-<li>懒加载，合并http请求和缓存。</li>
-</ul>
-<div class="page-nav"><a class="pre" href="factory.html">←工厂模式</a><a class="next" href="decotators.html">装饰者模式→</a></div>
+<div class="page-nav"><a class="pre" href="debounce.html">←什么是防抖和节流？有什么区别？如何实现？</a><a class="next" href="singleton.html">单例模式→</a></div>
         </div>
     </main>
         </div>

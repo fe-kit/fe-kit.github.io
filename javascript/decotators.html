@@ -12,7 +12,7 @@
         <div class="app">
         <header class="navbar"></header>
         <aside class="sidebar">
-    <ul class="ul-0"><li class="li-1"><p class="a-2">JAVASCRIPT</p></li><li class="li-1"><p class="a-2">基础知识</p><ul class="ul-2"><li class="li-3"><a href="object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li></ul></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="singleton.html" class="a-6">单例模式</a></li><li class="li-5"><a href="factory.html" class="a-6">工厂模式</a></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><a href="proxy.html" class="a-6">代理模式</a></li><li class="li-5"><a href="decotators.html" class="a-6">装饰者模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><a href="strategy.html" class="a-6">策略模式</a></li><li class="li-5"><a href="publishsubscribe.html" class="a-6">发布-订阅模式</a></li></ul></li></ul></li></ul>
+    <ul class="ul-0"><li class="li-1"><p class="a-2">JAVASCRIPT</p></li><li class="li-1"><p class="a-2">基础知识</p><ul class="ul-2"><li class="li-3"><a href="object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li></ul></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="singleton.html" class="a-6">单例模式</a></li><li class="li-5"><a href="factory.html" class="a-6">工厂模式</a></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><a href="proxy.html" class="a-6">代理模式</a></li><li class="li-5"><a href="decotators.html" class="a-6">装饰者模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><a href="strategy.html" class="a-6">策略模式</a></li><li class="li-5"><a href="publishsubscribe.html" class="a-6">发布-订阅模式</a></li></ul></li></ul></li></ul>
     </aside>
         <main class="page"><div class="page-bd">
         <h1>装饰者模式</h1>
@@ -67,11 +67,34 @@ instance2.skill(); <span class="hljs-comment">// HTML javascript</span>
 Decotator(m, skillJS)();
 </code></pre>
 </details>
+<h3>装饰器的本质是利用了 ES5 的 Object.defineProperty 方法</h3>
+<pre><code class="language-javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">autobind</span>(<span class="hljs-params"></span>) </span>{}
+@autobind
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{}
+
+<span class="hljs-comment">// 以下是babel编译后代码</span>
+<span class="hljs-keyword">var</span> _class;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_classCallCheck</span>(<span class="hljs-params">instance, Constructor</span>) </span>{
+  <span class="hljs-keyword">if</span> (!(instance <span class="hljs-keyword">instanceof</span> Constructor)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Cannot call a class as a function"</span>);
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">autobind</span>(<span class="hljs-params"></span>) </span>{}
+
+<span class="hljs-keyword">var</span> MyClass =
+  autobind(
+    (_class = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyClass</span>(<span class="hljs-params"></span>) </span>{
+      _classCallCheck(<span class="hljs-keyword">this</span>, MyClass);
+    })
+  ) || _class;
+</code></pre>
 <h3>延伸</h3>
 <ul>
 <li>装饰者模式由于松耦合，多用于一开始不确定对象的功能、或者对象功能经常变动的时候。 尤其是在参数检查、参数拦截等场景。</li>
-<li>为什么装饰器不能用于函数？如何装饰函数</li>
-<li>装饰器原理？</li>
+<li>为什么 es6 装饰器不能用于函数？装饰器只能用于类和类的方法，不能用于函数，因为存在函数提升。</li>
+<li>es6 装饰器原理？</li>
 </ul>
 <div class="page-nav"><a class="pre" href="proxy.html">←代理模式</a><a class="next" href="strategy.html">策略模式→</a></div>
         </div>
