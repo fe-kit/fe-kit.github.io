@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>[typeof null, null instanceof Object] 表达式的返回值是什么？</title>
+        <title></title>
         <link rel="stylesheet" href="../assets/style.css">
     </head>
     
@@ -15,27 +15,13 @@
     <ul class="ul-0"><li class="li-1"><p class="a-2">JAVASCRIPT</p></li><li class="li-1"><p class="a-2">基础知识</p><ul class="ul-2"><li class="li-3"><a href="object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li></ul></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li></ul>
     </aside>
         <main class="page"><div class="page-bd">
-        <h1>[typeof null, null instanceof Object] 表达式的返回值是什么？</h1>
-<pre><code class="language-javascript">[<span class="hljs-keyword">typeof</span> <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span>]
-</code></pre>
-<h3>结果</h3>
-<details><summary>点击查看结果</summary>
-<pre><code class="language-javascript">[<span class="hljs-string">"object"</span>, <span class="hljs-literal">false</span>]
-</code></pre>
-</details>
-<hr>
-<h3>延伸</h3>
-<ul>
-<li>基本类型 Boolean Number String Null Undefined BigInt Symbol</li>
-<li>null(薛定谔的对象) 与 undefined的区别
-<ul>
-<li>是一个字面量，它不像undefined 是全局对象的一个属性。null 是表示缺少的标识，指示变量未指向任何对象</li>
-<li>Number(null)输出为0, Number(undefined)输出为NaN</li>
-</ul>
-</li>
-<li>typeof instanceof Object.getPrototypeOf()</li>
-</ul>
-<div class="page-nav"><a class="pre" href="object_get.html">←获取对象路径处的值\_.get(object, a.b.c, default)</a><a class="next" href="array_map_parseint.html">["1", "2", "3"].map(parseInt) 返回值是什么？→</a></div>
+        <p>设计模式主要分为三大类： 1.创建型模式：工厂模式、抽象工厂模式、单例模式、建造者模式、原型模式。</p>
+<p>创建型模式关注对象的创建过程。</p>
+<p>2.结构型模式：适配器模式、桥接模式、装饰模式、组合模式、外观模式、享元模式、代理模式。</p>
+<p>结构型模式关注对象和类的组织。</p>
+<p>4.行为型模式：模板方法模式、命令模式、迭代器模式、观察者模式、中介者模式、备忘录模式、解释器模式、状态模式、策略模式、职责链模式、访问者模式。</p>
+<p>行为型模式关注系统中对象之间的相互交互，研究系统在运行时对象之间相互通信和协作，进一步明确对象的职责，共有 11 种模式。</p>
+<div class="page-nav"><a class="next" href="object_get.html">获取对象路径处的值\_.get(object, a.b.c, default)→</a></div>
         </div>
     </main>
         </div>
