@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>工厂模式？</title>
+        <link rel="stylesheet" href="../assets/style.css">
+    </head>
+    
+    <body>
+        <div class="app">
+        <header class="navbar"></header>
+        <aside class="sidebar">
+    <ul class="ul-0"><li class="li-1"><p class="a-2">前端面试</p></li><li class="li-1"><p class="a-2">html/css</p><ul class="ul-2"><li class="li-3"><a href="html-html5.html" class="a-4">html5</a></li></ul></li><li class="li-1"><p class="a-2">JAVASCRIPT</p></li><li class="li-1"><p class="a-2">基础知识</p><ul class="ul-2"><li class="li-3"><a href="javascript-object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="javascript-null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="javascript-array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="javascript-debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="javascript-object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li></ul></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="javascript-factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="javascript-abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="javascript-singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="javascript-decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="javascript-proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="javascript-publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="javascript-state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="javascript-strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li></ul>
+    </aside>
+        <main class="page"><div class="page-bd">
+        <h1>工厂模式？</h1>
+<blockquote>
+<p>定义：“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。”</p>
+</blockquote>
+<blockquote>
+<p>核心：就是把 new 对象的操作包裹一层，对外提供一个可以根据不同参数创建不同对象的函数。</p>
+</blockquote>
+<p>优缺点：</p>
+<ul>
+<li>可以隐藏原始类，方便之后的代码迁移。</li>
+<li>由于多了层封装，会造成类的数目过多，系统复杂度增加</li>
+</ul>
+<h3>实现</h3>
+<details><summary>简单工厂实现</summary>
+<pre><code class="language-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BlueBicycle</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Crete BlueBicycle!"</span>);
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloBicycle</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Crete HelloBicycle!"</span>);
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BicycleFactory</span> </span>{
+  <span class="hljs-keyword">constructor</span>(name) {
+    <span class="hljs-keyword">switch</span> (name) {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">"blue"</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BlueBicycle();
+      <span class="hljs-keyword">case</span> <span class="hljs-string">"hello"</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> HelloBicycle();
+      <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"class name wrong"</span>);
+    }
+  }
+}
+<span class="hljs-keyword">new</span> BicycleFactory(<span class="hljs-string">"blue"</span>);
+<span class="hljs-keyword">new</span> BicycleFactory(<span class="hljs-string">"hello"</span>);
+</code></pre>
+</details>
+<div class="page-nav"><a class="pre" href="javascript-object_defineproperty.html">←Object.defineProperty 了解有多少？什么是属性描述符？</a><a class="next" href="javascript-abstract-factory.html">抽象工厂模式→</a></div>
+        </div>
+    </main>
+        </div>
+        <script>
+        const pageName = location.href.replace(/^(.*)\/([^/]*).html$/i, "$2");
+            const menu = document.querySelector('.sidebar ul');
+            const current = menu.querySelector('a[href="' + pageName + '.html"]');
+            const list = document.querySelectorAll('.sidebar li');
+            const cache = {};
+            list.forEach((item, index) => {
+                const ul = item.querySelector('ul');
+                if (ul) {
+                    const holder = item.firstElementChild;
+                    holder.setAttribute('data-holder', index);
+                    holder.setAttribute('class', 'holder');
+                    ul.setAttribute('data-menu', index);
+                    cache[index] = ul;
+                }
+            })
+            if (current) {
+                current.setAttribute('class', 'cur');
+                displayParent(current);
+            }
+            menu.addEventListener('click', (e) => {
+                const target = e.target;
+                const holder = target.getAttribute('data-holder');
+                if (holder) {
+                    const block = cache[holder].style.display === 'block';
+                    cache[holder].style.display = block ? 'none' : 'block';
+                    target.setAttribute('class', block ? 'holder' : 'holder active');
+                }
+            });
+
+            function displayParent(ele) {
+                const ul = ele.parentElement.parentElement;
+                if (ul && ul.getAttribute('data-menu')) {
+                    ul.style.display = 'block';
+                    ul.previousElementSibling.setAttribute('class', 'holder active');
+                    displayParent(ul);
+                }
+            }
+        </script>
+        <script src="../assets/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    </body>
+    </html>
