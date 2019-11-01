@@ -52,14 +52,16 @@ a {
   overflow-y: auto;
   padding-top: 1rem;
 }
-
+.sidebar .li-1 {
+  padding-left: 0.5rem;
+}
 .sidebar .a-0,
 .sidebar .a-2 {
   font-weight: 600;
   position: relative;
-  color: #939da3;
+  color: #221122;
   font-size: 1.1em;
-  padding: 0.4rem 1.5rem 0.35rem 1.25rem;
+  padding: 0.4rem 1.5rem 0.35rem 0.7rem;
   width: 100%;
   box-sizing: border-box;
   border-left: 0.25rem solid transparent;
@@ -76,11 +78,11 @@ a {
 .sidebar a {
   padding-left: 2rem;
   display: inline-block;
-  font-size: 0.8em;
+  font-size: 0.9em;
   font-weight: 400;
   display: inline-block;
   border-left: 0.25rem solid transparent;
-  padding: 0.35rem 1rem 0.35rem 1.25rem;
+  padding: 0.2rem 1rem 0.2rem 1.25rem;
   line-height: 1.4;
   width: 100%;
   box-sizing: border-box;
@@ -95,7 +97,7 @@ a {
 }
 .holder {
   position: relative;
-  color: #2c3e50;
+  color: #777;
   transition: color 0.15s ease;
   cursor: pointer;
   font-size: 1em;
@@ -124,7 +126,9 @@ a {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
 }
-
+.li-3 .holder {
+  font-size: 0.95rem;
+}
 .page {
   padding-left: 20rem;
   padding-bottom: 2rem;
@@ -159,6 +163,7 @@ blockquote {
   border-top: 1px solid #eaecef;
   padding-top: 1rem;
   overflow: auto;
+  margin-top: 1.5rem;
 }
 .page-nav a {
   flex: 1;
@@ -199,6 +204,7 @@ td {
   padding: 0.5em;
   background: #1e1e1e;
   color: #dcdcdc;
+  border-radius: 5px;
 }
 .hljs-keyword,
 .hljs-literal,
