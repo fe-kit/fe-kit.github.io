@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <link rel="stylesheet" href="../assets/style.css">
+    </head>
+    
+    <body>
+        <div class="app">
+        <header class="navbar"></header>
+        <aside class="sidebar">
+    <ul class="ul-0"><li class="li-1"><p class="a-2">前端面试</p></li><li class="li-1"><p class="a-2">html/css</p><ul class="ul-2"><li class="li-3"><a href="html-html5.html" class="a-4">html5</a></li></ul></li><li class="li-1"><p class="a-2">javascrpt</p><ul class="ul-2"><li class="li-3"><a href="javascript-reduce.html" class="a-4">array reduce 返回值是什么？</a></li><li class="li-3"><a href="javascript-vueprototype.html" class="a-4">vue 组件挂载到全局方法？</a></li><li class="li-3"><a href="javascript-constructor.html" class="a-4">构造函数的返回值是什么？</a></li><li class="li-3"><a href="javascript-vueinsertcomponent.html" class="a-4">怎么通过编程的方式而不是<'my-component'>的方式动态的插入 Vue components?</a></li><li class="li-3"><a href="javascript-object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="javascript-null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="javascript-array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="javascript-debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="javascript-object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li><li class="li-3"><a href="javascript-mutationobserver.html" class="a-4">怎么监视对 DOM 树的变化</a></li></ul></li><li class="li-1"><p class="a-2">基础知识</p></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="pattern-factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="pattern-abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="pattern-singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="pattern-decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="pattern-proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="pattern-publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="pattern-state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="pattern-strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li></ul>
+    </aside>
+        <main class="page"><div class="page-bd">
+        <p>// # Vuexv3.1.1 源码解读</p>
+<p>// ```javascript<br>
+/**</p>
+<ul>
+<li>vuex v3.1.1</li>
+<li>(c) 2019 Evan You</li>
+<li>@license MIT<br>
+*/<br>
+(function(global, factory) {<br>
+typeof exports === &quot;object&quot; &amp;&amp; typeof module !== &quot;undefined&quot;<br>
+? (module.exports = factory())<br>
+: typeof define === &quot;function&quot; &amp;&amp; define.amd<br>
+? define(factory)<br>
+: ((global = global || self), (global.Vuex = factory()));<br>
+})(this, function() {<br>
+&quot;use strict&quot;;</li>
+</ul>
+<p>function applyMixin(Vue) {<br>
+var version = Number(Vue.version.split(&quot;.&quot;)[0]);</p>
+<pre><code>if (version &gt;= 2) { // 新版本复用mixin 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+  Vue.mixin({ beforeCreate: vuexInit });
+} else {// 老版本忽略了吧
+  // override init and inject vuex init procedure
+  // for 1.x backwards compatibility.
+  var _init = Vue.prototype._init;
+  Vue.prototype._init = function(options) {
+    if (options === void 0) options = {};
+
+    options.init = options.init
+      ? [vuexInit].concat(options.init)
+      : vuexInit;
+    _init.call(this, options);
+  };
+}
+
+/**
+ * Vuex init hook, injected into each instances init hooks list.
+ */
+
+function vuexInit() {
+  var options = this.$options;
+  // store injection
+  if (options.store) {// 如果根组件实例化时存在store属性(函数或者是对象)
+    this.$store =
+      typeof options.store === &quot;function&quot; ? options.store() : options.store;
+  } else if (options.parent &amp;&amp; options.parent.$store) {
+    this.$store = options.parent.$store; //子组件实例化指向父组件的$store
+  }
+}
+</code></pre>
+<p>}<br>
+// 定义 __VUE_DEVTOOLS_GLOBAL_HOOK__变量<br>
+var target =<br>
+typeof window !== &quot;undefined&quot;<br>
+? window<br>
+: typeof global !== &quot;undefined&quot;<br>
+? global<br>
+: {};<br>
+var devtoolHook = target.<strong>VUE_DEVTOOLS_GLOBAL_HOOK</strong>;</p>
+<p>function devtoolPlugin(store) {<br>
+if (!devtoolHook) {<br>
+return;<br>
+}</p>
+<pre><code>store._devtoolHook = devtoolHook;
+
+devtoolHook.emit(&quot;vuex:init&quot;, store);
+
+devtoolHook.on(&quot;vuex:travel-to-state&quot;, function(targetState) {
+  store.replaceState(targetState);
+});
+
+store.subscribe(function(mutation, state) {
+  devtoolHook.emit(&quot;vuex:mutation&quot;, mutation, state);
+});
+</code></pre>
+<p>}</p>
+<p>/**</p>
+<ul>
+<li>Get the first item that pass the test</li>
+<li>by second argument function</li>
+<li></li>
+<li>@param {Array} list</li>
+<li>@param {Function} f</li>
+<li>@return {*}<br>
+*/</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>forEach for object<br>
+*/<br>
+function forEachValue(obj, fn) {<br>
+Object.keys(obj).forEach(function(key) {<br>
+return fn(obj[key], key);<br>
+});<br>
+}</li>
+</ul>
+<p>function isObject(obj) {<br>
+return obj !== null &amp;&amp; typeof obj === &quot;object&quot;;<br>
+}</p>
+<p>function isPromise(val) {<br>
+return val &amp;&amp; typeof val.then === &quot;function&quot;;<br>
+}</p>
+<p>function assert(condition, msg) {<br>
+if (!condition) {<br>
+throw new Error(&quot;[vuex] &quot; + msg);<br>
+}<br>
+}</p>
+<p>function partial(fn, arg) {<br>
+return function() {<br>
+return fn(arg);<br>
+};<br>
+}</p>
+<p>// 存储模块的基本数据结构，包括某些属性和方法<br>
+var Module = function Module(rawModule, runtime) {<br>
+this.runtime = runtime;<br>
+// Store some children item<br>
+// 收集模块register时添加<br>
+this._children = Object.create(null);<br>
+// Store the origin module object which passed by programmer<br>
+// 存储传递的源模块对象<br>
+this._rawModule = rawModule;<br>
+var rawState = rawModule.state;// 初始化state</p>
+<pre><code>// Store the origin module's state
+// 存储传递的源state对象
+this.state = (typeof rawState === &quot;function&quot; ? rawState() : rawState) || {};
+</code></pre>
+<p>};</p>
+<p>var prototypeAccessors = { namespaced: { configurable: true } };</p>
+<p>prototypeAccessors.namespaced.get = function() {<br>
+return !!this._rawModule.namespaced;<br>
+};</p>
+<p>Module.prototype.addChild = function addChild(key, module) {<br>
+this._children[key] = module;<br>
+};</p>
+<p>Module.prototype.removeChild = function removeChild(key) {<br>
+delete this._children[key];<br>
+};</p>
+<p>Module.prototype.getChild = function getChild(key) {<br>
+return this._children[key];<br>
+};</p>
+<p>Module.prototype.update = function update(rawModule) {<br>
+this._rawModule.namespaced = rawModule.namespaced;<br>
+if (rawModule.actions) {<br>
+this._rawModule.actions = rawModule.actions;<br>
+}<br>
+if (rawModule.mutations) {<br>
+this._rawModule.mutations = rawModule.mutations;<br>
+}<br>
+if (rawModule.getters) {<br>
+this._rawModule.getters = rawModule.getters;<br>
+}<br>
+};</p>
+<p>Module.prototype.forEachChild = function forEachChild(fn) {<br>
+forEachValue(this._children, fn);<br>
+};</p>
+<p>Module.prototype.forEachGetter = function forEachGetter(fn) {<br>
+if (this._rawModule.getters) {<br>
+forEachValue(this._rawModule.getters, fn);<br>
+}<br>
+};</p>
+<p>Module.prototype.forEachAction = function forEachAction(fn) {<br>
+if (this._rawModule.actions) {<br>
+forEachValue(this._rawModule.actions, fn);<br>
+}<br>
+};</p>
+<p>Module.prototype.forEachMutation = function forEachMutation(fn) {<br>
+if (this._rawModule.mutations) {<br>
+forEachValue(this._rawModule.mutations, fn);<br>
+}<br>
+};</p>
+<p>Object.defineProperties(Module.prototype, prototypeAccessors);<br>
+// 模块收集注册所有模块<br>
+var ModuleCollection = function ModuleCollection(rawRootModule) {<br>
+// register root module (Vuex.Store options)<br>
+// 注册root module<br>
+this.register([], rawRootModule, false);<br>
+};</p>
+<p>ModuleCollection.prototype.get = function get(path) {<br>
+return path.reduce(function(module, key) {<br>
+return module.getChild(key);<br>
+}, this.root);<br>
+};</p>
+<p>ModuleCollection.prototype.getNamespace = function getNamespace(path) {<br>
+var module = this.root;<br>
+return path.reduce(function(namespace, key) {<br>
+module = module.getChild(key);<br>
+return namespace + (module.namespaced ? key + &quot;/&quot; : &quot;&quot;);<br>
+}, &quot;&quot;);<br>
+};</p>
+<p>ModuleCollection.prototype.update = function update$1(rawRootModule) {<br>
+update([], this.root, rawRootModule);<br>
+};</p>
+<p>ModuleCollection.prototype.register = function register(<br>
+path,<br>
+rawModule,<br>
+runtime<br>
+) {<br>
+var this$1 = this;<br>
+if (runtime === void 0) runtime = true;</p>
+<pre><code>{
+  assertRawModule(path, rawModule);
+}
+
+var newModule = new Module(rawModule, runtime);
+// 注册根模块
+if (path.length === 0) {
+  this.root = newModule;
+} else {
+  // 父模块 &amp;&amp; 添加 _children
+  var parent = this.get(path.slice(0, -1));
+  parent.addChild(path[path.length - 1], newModule);
+}
+
+// 注册嵌套的模块可以看出模块是可以无限嵌套的
+if (rawModule.modules) {
+  forEachValue(rawModule.modules, function(rawChildModule, key) {
+    this$1.register(path.concat(key), rawChildModule, runtime);
+  });
+}
+</code></pre>
+<p>};</p>
+<p>ModuleCollection.prototype.unregister = function unregister(path) {<br>
+var parent = this.get(path.slice(0, -1));<br>
+var key = path[path.length - 1];<br>
+if (!parent.getChild(key).runtime) {<br>
+return;<br>
+}</p>
+<pre><code>parent.removeChild(key);
+</code></pre>
+<p>};</p>
+<p>function update(path, targetModule, newModule) {<br>
+{<br>
+assertRawModule(path, newModule);<br>
+}</p>
+<pre><code>// update target module
+targetModule.update(newModule);
+
+// update nested modules 
+// 更新嵌套模块
+if (newModule.modules) {
+  for (var key in newModule.modules) {
+    if (!targetModule.getChild(key)) {
+      {
+        console.warn(
+          &quot;[vuex] trying to add a new module '&quot; +
+            key +
+            &quot;' on hot reloading, &quot; +
+            &quot;manual reload is needed&quot;
+        );
+      }
+      return;
+    }
+    update(
+      path.concat(key),
+      targetModule.getChild(key),
+      newModule.modules[key]
+    );
+  }
+}
+</code></pre>
+<p>}</p>
+<p>var functionAssert = {<br>
+assert: function(value) {<br>
+return typeof value === &quot;function&quot;;<br>
+},<br>
+expected: &quot;function&quot;<br>
+};</p>
+<p>var objectAssert = {<br>
+assert: function(value) {<br>
+return (<br>
+typeof value === &quot;function&quot; ||<br>
+(typeof value === &quot;object&quot; &amp;&amp; typeof value.handler === &quot;function&quot;)<br>
+);<br>
+},<br>
+expected: 'function or object with &quot;handler&quot; function'<br>
+};</p>
+<p>var assertTypes = {<br>
+getters: functionAssert,<br>
+mutations: functionAssert,<br>
+actions: objectAssert<br>
+};</p>
+<p>function assertRawModule(path, rawModule) {<br>
+Object.keys(assertTypes).forEach(function(key) {<br>
+if (!rawModule[key]) {<br>
+return;<br>
+}</p>
+<pre><code>  var assertOptions = assertTypes[key];
+
+  forEachValue(rawModule[key], function(value, type) {
+    assert(
+      assertOptions.assert(value),
+      makeAssertionMessage(path, key, type, value, assertOptions.expected)
+    );
+  });
+});
+</code></pre>
+<p>}</p>
+<p>function makeAssertionMessage(path, key, type, value, expected) {<br>
+var buf =<br>
+key + &quot; should be &quot; + expected + ' but &quot;' + key + &quot;.&quot; + type + '&quot;';<br>
+if (path.length &gt; 0) {<br>
+buf += ' in module &quot;' + path.join(&quot;.&quot;) + '&quot;';<br>
+}<br>
+buf += &quot; is &quot; + JSON.stringify(value) + &quot;.&quot;;<br>
+return buf;<br>
+}</p>
+<p>var Vue; // bind on install</p>
+<p>var Store = function Store(options) {<br>
+var this$1 = this;<br>
+if (options === void 0) options = {};</p>
+<pre><code>// Auto install if it is not done yet and `window` has `Vue`.
+// To allow users to avoid auto-installation in some cases,
+// this code should be placed here. See #731
+// 自动安装Vuex
+if (!Vue &amp;&amp; typeof window !== &quot;undefined&quot; &amp;&amp; window.Vue) {
+  install(window.Vue);
+}
+
+{
+  assert(Vue, &quot;must call Vue.use(Vuex) before creating a store instance.&quot;);
+  assert(
+    typeof Promise !== &quot;undefined&quot;,
+    &quot;vuex requires a Promise polyfill in this browser.&quot;
+  );
+  assert(
+    this instanceof Store,
+    &quot;store must be called with the new operator.&quot;
+  );
+}
+
+var plugins = options.plugins;
+if (plugins === void 0) plugins = [];
+var strict = options.strict;
+if (strict === void 0) strict = false;
+
+// store internal state
+this._committing = false;
+this._actions = Object.create(null);
+this._actionSubscribers = [];
+this._mutations = Object.create(null);
+this._wrappedGetters = Object.create(null);
+this._modules = new ModuleCollection(options);
+this._modulesNamespaceMap = Object.create(null);
+this._subscribers = [];
+this._watcherVM = new Vue();
+
+// bind commit and dispatch to self
+var store = this;
+var ref = this;
+var dispatch = ref.dispatch;
+var commit = ref.commit;
+// 重新绑定 dispatch
+this.dispatch = function boundDispatch(type, payload) {
+  return dispatch.call(store, type, payload);
+};
+// 重新绑定commit
+this.commit = function boundCommit(type, payload, options) {
+  return commit.call(store, type, payload, options);
+};
+
+// strict mode
+this.strict = strict;
+
+var state = this._modules.root.state;
+
+// init root module.
+// this also recursively registers all sub-modules
+// and collects all module getters inside this._wrappedGetters
+installModule(this, state, [], this._modules.root);
+
+// initialize the store vm, which is responsible for the reactivity
+// (also registers _wrappedGetters as computed properties)
+resetStoreVM(this, state);
+
+// apply plugins
+plugins.forEach(function(plugin) {
+  return plugin(this$1);
+});
+
+var useDevtools =
+  options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+if (useDevtools) {
+  devtoolPlugin(this);
+}
+</code></pre>
+<p>};</p>
+<p>var prototypeAccessors$1 = { state: { configurable: true } };</p>
+<p>prototypeAccessors$1.state.get = function() {<br>
+return this._vm._data.$$state;<br>
+};</p>
+<p>prototypeAccessors$1.state.set = function(v) {<br>
+{<br>
+assert(<br>
+false,<br>
+&quot;use store.replaceState() to explicit replace store state.&quot;<br>
+);<br>
+}<br>
+};</p>
+<p>Store.prototype.commit = function commit(_type, _payload, _options) {<br>
+var this$1 = this;</p>
+<pre><code>// check object-style commit
+var ref = unifyObjectStyle(_type, _payload, _options);
+var type = ref.type;
+var payload = ref.payload;
+var options = ref.options;
+
+var mutation = { type: type, payload: payload };
+var entry = this._mutations[type];
+if (!entry) {
+  {
+    console.error(&quot;[vuex] unknown mutation type: &quot; + type);
+  }
+  return;
+}
+this._withCommit(function() {
+  entry.forEach(function commitIterator(handler) {
+    handler(payload);
+  });
+});
+this._subscribers.forEach(function(sub) {
+  return sub(mutation, this$1.state);
+});
+
+if (options &amp;&amp; options.silent) {
+  console.warn(
+    &quot;[vuex] mutation type: &quot; +
+      type +
+      &quot;. Silent option has been removed. &quot; +
+      &quot;Use the filter functionality in the vue-devtools&quot;
+  );
+}
+</code></pre>
+<p>};</p>
+<p>Store.prototype.dispatch = function dispatch(_type, _payload) {<br>
+var this$1 = this;</p>
+<pre><code>// check object-style dispatch
+var ref = unifyObjectStyle(_type, _payload);
+var type = ref.type;
+var payload = ref.payload;
+
+var action = { type: type, payload: payload };
+var entry = this._actions[type];
+if (!entry) {
+  {
+    console.error(&quot;[vuex] unknown action type: &quot; + type);
+  }
+  return;
+}
+
+try {
+  this._actionSubscribers
+    .filter(function(sub) {
+      return sub.before;
+    })
+    .forEach(function(sub) {
+      return sub.before(action, this$1.state);
+    });
+} catch (e) {
+  {
+    console.warn(&quot;[vuex] error in before action subscribers: &quot;);
+    console.error(e);
+  }
+}
+
+var result =
+  entry.length &gt; 1
+    ? Promise.all(
+        entry.map(function(handler) {
+          return handler(payload);
+        })
+      )
+    : entry[0](payload);
+
+return result.then(function(res) {
+  try {
+    this$1._actionSubscribers
+      .filter(function(sub) {
+        return sub.after;
+      })
+      .forEach(function(sub) {
+        return sub.after(action, this$1.state);
+      });
+  } catch (e) {
+    {
+      console.warn(&quot;[vuex] error in after action subscribers: &quot;);
+      console.error(e);
+    }
+  }
+  return res;
+});
+</code></pre>
+<p>};</p>
+<p>Store.prototype.subscribe = function subscribe(fn) {<br>
+return genericSubscribe(fn, this._subscribers);<br>
+};</p>
+<p>Store.prototype.subscribeAction = function subscribeAction(fn) {<br>
+var subs = typeof fn === &quot;function&quot; ? { before: fn } : fn;<br>
+return genericSubscribe(subs, this._actionSubscribers);<br>
+};</p>
+<p>Store.prototype.watch = function watch(getter, cb, options) {<br>
+var this$1 = this;</p>
+<pre><code>{
+  assert(
+    typeof getter === &quot;function&quot;,
+    &quot;store.watch only accepts a function.&quot;
+  );
+}
+return this._watcherVM.$watch(
+  function() {
+    return getter(this$1.state, this$1.getters);
+  },
+  cb,
+  options
+);
+</code></pre>
+<p>};</p>
+<p>Store.prototype.replaceState = function replaceState(state) {<br>
+var this$1 = this;</p>
+<pre><code>this._withCommit(function() {
+  this$1._vm._data.$$state = state;
+});
+</code></pre>
+<p>};</p>
+<p>Store.prototype.registerModule = function registerModule(<br>
+path,<br>
+rawModule,<br>
+options<br>
+) {<br>
+if (options === void 0) options = {};</p>
+<pre><code>if (typeof path === &quot;string&quot;) {
+  path = [path];
+}
+
+{
+  assert(Array.isArray(path), &quot;module path must be a string or an Array.&quot;);
+  assert(
+    path.length &gt; 0,
+    &quot;cannot register the root module by using registerModule.&quot;
+  );
+}
+
+this._modules.register(path, rawModule);
+installModule(
+  this,
+  this.state,
+  path,
+  this._modules.get(path),
+  options.preserveState
+);
+// reset store to update getters...
+resetStoreVM(this, this.state);
+</code></pre>
+<p>};</p>
+<p>Store.prototype.unregisterModule = function unregisterModule(path) {<br>
+var this$1 = this;</p>
+<pre><code>if (typeof path === &quot;string&quot;) {
+  path = [path];
+}
+
+{
+  assert(Array.isArray(path), &quot;module path must be a string or an Array.&quot;);
+}
+
+this._modules.unregister(path);
+this._withCommit(function() {
+  var parentState = getNestedState(this$1.state, path.slice(0, -1));
+  Vue.delete(parentState, path[path.length - 1]);
+});
+resetStore(this);
+</code></pre>
+<p>};</p>
+<p>Store.prototype.hotUpdate = function hotUpdate(newOptions) {<br>
+this._modules.update(newOptions);<br>
+resetStore(this, true);<br>
+};</p>
+<p>Store.prototype._withCommit = function _withCommit(fn) {<br>
+var committing = this._committing;<br>
+this._committing = true;<br>
+fn();<br>
+this._committing = committing;<br>
+};</p>
+<p>Object.defineProperties(Store.prototype, prototypeAccessors$1);</p>
+<p>function genericSubscribe(fn, subs) {<br>
+if (subs.indexOf(fn) &lt; 0) {<br>
+subs.push(fn);<br>
+}<br>
+return function() {<br>
+var i = subs.indexOf(fn);<br>
+if (i &gt; -1) {<br>
+subs.splice(i, 1);<br>
+}<br>
+};<br>
+}</p>
+<p>function resetStore(store, hot) {<br>
+store._actions = Object.create(null);<br>
+store._mutations = Object.create(null);<br>
+store._wrappedGetters = Object.create(null);<br>
+store._modulesNamespaceMap = Object.create(null);<br>
+var state = store.state;<br>
+// init all modules<br>
+installModule(store, state, [], store._modules.root, true);<br>
+// reset vm<br>
+resetStoreVM(store, state, hot);<br>
+}</p>
+<p>function resetStoreVM(store, state, hot) {<br>
+var oldVm = store._vm;</p>
+<pre><code>// bind store public getters
+store.getters = {};
+var wrappedGetters = store._wrappedGetters;
+var computed = {};
+forEachValue(wrappedGetters, function(fn, key) {
+  // use computed to leverage its lazy-caching mechanism
+  // direct inline function use will lead to closure preserving oldVm.
+  // using partial to return function with only arguments preserved in closure enviroment.
+  computed[key] = partial(fn, store);
+  Object.defineProperty(store.getters, key, {
+    get: function() {
+      return store._vm[key];
+    },
+    enumerable: true // for local getters
+  });
+});
+
+// use a Vue instance to store the state tree
+// suppress warnings just in case the user has added
+// some funky global mixins
+var silent = Vue.config.silent;
+Vue.config.silent = true;
+store._vm = new Vue({
+  data: {
+    $$state: state
+  },
+  computed: computed
+});
+Vue.config.silent = silent;
+
+// enable strict mode for new vm
+if (store.strict) {
+  enableStrictMode(store);
+}
+
+if (oldVm) {
+  if (hot) {
+    // dispatch changes in all subscribed watchers
+    // to force getter re-evaluation for hot reloading.
+    store._withCommit(function() {
+      oldVm._data.$$state = null;
+    });
+  }
+  Vue.nextTick(function() {
+    return oldVm.$destroy();
+  });
+}
+</code></pre>
+<p>}</p>
+<p>function installModule(store, rootState, path, module, hot) {<br>
+var isRoot = !path.length;<br>
+var namespace = store._modules.getNamespace(path);</p>
+<pre><code>// register in namespace map
+if (module.namespaced) {
+  store._modulesNamespaceMap[namespace] = module;
+}
+
+// set state
+if (!isRoot &amp;&amp; !hot) {
+  var parentState = getNestedState(rootState, path.slice(0, -1));
+  var moduleName = path[path.length - 1];
+  store._withCommit(function() {
+    Vue.set(parentState, moduleName, module.state);
+  });
+}
+
+var local = (module.context = makeLocalContext(store, namespace, path));
+
+module.forEachMutation(function(mutation, key) {
+  var namespacedType = namespace + key;
+  registerMutation(store, namespacedType, mutation, local);
+});
+
+module.forEachAction(function(action, key) {
+  var type = action.root ? key : namespace + key;
+  var handler = action.handler || action;
+  registerAction(store, type, handler, local);
+});
+
+module.forEachGetter(function(getter, key) {
+  var namespacedType = namespace + key;
+  registerGetter(store, namespacedType, getter, local);
+});
+
+module.forEachChild(function(child, key) {
+  installModule(store, rootState, path.concat(key), child, hot);
+});
+</code></pre>
+<p>}</p>
+<p>/**</p>
+<ul>
+<li>make localized dispatch, commit, getters and state</li>
+<li>if there is no namespace, just use root ones<br>
+*/<br>
+function makeLocalContext(store, namespace, path) {<br>
+var noNamespace = namespace === &quot;&quot;;</li>
+</ul>
+<pre><code>var local = {
+  dispatch: noNamespace
+    ? store.dispatch
+    : function(_type, _payload, _options) {
+        var args = unifyObjectStyle(_type, _payload, _options);
+        var payload = args.payload;
+        var options = args.options;
+        var type = args.type;
+
+        if (!options || !options.root) {
+          type = namespace + type;
+          if (!store._actions[type]) {
+            console.error(
+              &quot;[vuex] unknown local action type: &quot; +
+                args.type +
+                &quot;, global type: &quot; +
+                type
+            );
+            return;
+          }
+        }
+
+        return store.dispatch(type, payload);
+      },
+
+  commit: noNamespace
+    ? store.commit
+    : function(_type, _payload, _options) {
+        var args = unifyObjectStyle(_type, _payload, _options);
+        var payload = args.payload;
+        var options = args.options;
+        var type = args.type;
+
+        if (!options || !options.root) {
+          type = namespace + type;
+          if (!store._mutations[type]) {
+            console.error(
+              &quot;[vuex] unknown local mutation type: &quot; +
+                args.type +
+                &quot;, global type: &quot; +
+                type
+            );
+            return;
+          }
+        }
+
+        store.commit(type, payload, options);
+      }
+};
+
+// getters and state object must be gotten lazily
+// because they will be changed by vm update
+Object.defineProperties(local, {
+  getters: {
+    get: noNamespace
+      ? function() {
+          return store.getters;
+        }
+      : function() {
+          return makeLocalGetters(store, namespace);
+        }
+  },
+  state: {
+    get: function() {
+      return getNestedState(store.state, path);
+    }
+  }
+});
+
+return local;
+</code></pre>
+<p>}</p>
+<p>function makeLocalGetters(store, namespace) {<br>
+var gettersProxy = {};</p>
+<pre><code>var splitPos = namespace.length;
+Object.keys(store.getters).forEach(function(type) {
+  // skip if the target getter is not match this namespace
+  if (type.slice(0, splitPos) !== namespace) {
+    return;
+  }
+
+  // extract local getter type
+  var localType = type.slice(splitPos);
+
+  // Add a port to the getters proxy.
+  // Define as getter property because
+  // we do not want to evaluate the getters in this time.
+  Object.defineProperty(gettersProxy, localType, {
+    get: function() {
+      return store.getters[type];
+    },
+    enumerable: true
+  });
+});
+
+return gettersProxy;
+</code></pre>
+<p>}</p>
+<p>function registerMutation(store, type, handler, local) {<br>
+var entry = store._mutations[type] || (store._mutations[type] = []);<br>
+entry.push(function wrappedMutationHandler(payload) {<br>
+handler.call(store, local.state, payload);<br>
+});<br>
+}</p>
+<p>function registerAction(store, type, handler, local) {<br>
+var entry = store._actions[type] || (store._actions[type] = []);<br>
+entry.push(function wrappedActionHandler(payload, cb) {<br>
+var res = handler.call(<br>
+store,<br>
+{<br>
+dispatch: local.dispatch,<br>
+commit: local.commit,<br>
+getters: local.getters,<br>
+state: local.state,<br>
+rootGetters: store.getters,<br>
+rootState: store.state<br>
+},<br>
+payload,<br>
+cb<br>
+);<br>
+if (!isPromise(res)) {<br>
+res = Promise.resolve(res);<br>
+}<br>
+if (store._devtoolHook) {<br>
+return res.catch(function(err) {<br>
+store._devtoolHook.emit(&quot;vuex:error&quot;, err);<br>
+throw err;<br>
+});<br>
+} else {<br>
+return res;<br>
+}<br>
+});<br>
+}</p>
+<p>function registerGetter(store, type, rawGetter, local) {<br>
+if (store._wrappedGetters[type]) {<br>
+{<br>
+console.error(&quot;[vuex] duplicate getter key: &quot; + type);<br>
+}<br>
+return;<br>
+}<br>
+store._wrappedGetters[type] = function wrappedGetter(store) {<br>
+return rawGetter(<br>
+local.state, // local state<br>
+local.getters, // local getters<br>
+store.state, // root state<br>
+store.getters // root getters<br>
+);<br>
+};<br>
+}</p>
+<p>function enableStrictMode(store) {<br>
+store._vm.$watch(<br>
+function() {<br>
+return this._data.$$state;<br>
+},<br>
+function() {<br>
+{<br>
+assert(<br>
+store._committing,<br>
+&quot;do not mutate vuex store state outside mutation handlers.&quot;<br>
+);<br>
+}<br>
+},<br>
+{ deep: true, sync: true }<br>
+);<br>
+}</p>
+<p>function getNestedState(state, path) {<br>
+return path.length<br>
+? path.reduce(function(state, key) {<br>
+return state[key];<br>
+}, state)<br>
+: state;<br>
+}</p>
+<p>function unifyObjectStyle(type, payload, options) {<br>
+if (isObject(type) &amp;&amp; type.type) {<br>
+options = payload;<br>
+payload = type;<br>
+type = type.type;<br>
+}</p>
+<pre><code>{
+  assert(
+    typeof type === &quot;string&quot;,
+    &quot;expects string as the type, but found &quot; + typeof type + &quot;.&quot;
+  );
+}
+
+return { type: type, payload: payload, options: options };
+</code></pre>
+<p>}<br>
+// 安装插件<br>
+function install(_Vue) {<br>
+if (Vue &amp;&amp; _Vue === Vue) {<br>
+{<br>
+console.error(<br>
+&quot;[vuex] already installed. Vue.use(Vuex) should be called only once.&quot;<br>
+);<br>
+}<br>
+return;<br>
+}<br>
+Vue = _Vue;<br>
+applyMixin(Vue);<br>
+}</p>
+<p>/**</p>
+<ul>
+<li>
+<p>Reduce the code which written in Vue.js for getting the state.</p>
+</li>
+<li>
+<p>@param {String} [namespace] - Module's namespace</p>
+</li>
+<li>
+<p>@param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.</p>
+</li>
+<li>
+<p>@param {Object}<br>
+*/<br>
+var mapState = normalizeNamespace(function(namespace, states) {<br>
+var res = {};<br>
+normalizeMap(states).forEach(function(ref) {<br>
+var key = ref.key;<br>
+var val = ref.val;</p>
+<p>res[key] = function mappedState() {<br>
+var state = this.$store.state;<br>
+var getters = this.$store.getters;<br>
+if (namespace) {<br>
+var module = getModuleByNamespace(this.$store, &quot;mapState&quot;, namespace);<br>
+if (!module) {<br>
+return;<br>
+}<br>
+state = module.context.state;<br>
+getters = module.context.getters;<br>
+}<br>
+return typeof val === &quot;function&quot;<br>
+? val.call(this, state, getters)<br>
+: state[val];<br>
+};<br>
+// mark vuex getter for devtools<br>
+res[key].vuex = true;<br>
+});<br>
+return res;<br>
+});</p>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>
+<p>Reduce the code which written in Vue.js for committing the mutation</p>
+</li>
+<li>
+<p>@param {String} [namespace] - Module's namespace</p>
+</li>
+<li>
+<p>@param {Object|Array} mutations # Object's item can be a function which accept <code>commit</code> function as the first param, it can accept anthor params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.</p>
+</li>
+<li>
+<p>@return {Object}<br>
+*/<br>
+var mapMutations = normalizeNamespace(function(namespace, mutations) {<br>
+var res = {};<br>
+normalizeMap(mutations).forEach(function(ref) {<br>
+var key = ref.key;<br>
+var val = ref.val;</p>
+<p>res[key] = function mappedMutation() {<br>
+var args = [],<br>
+len = arguments.length;<br>
+while (len--) args[len] = arguments[len];</p>
+<p>// Get the commit method from store<br>
+var commit = this.$store.commit;<br>
+if (namespace) {<br>
+var module = getModuleByNamespace(<br>
+this.$store,<br>
+&quot;mapMutations&quot;,<br>
+namespace<br>
+);<br>
+if (!module) {<br>
+return;<br>
+}<br>
+commit = module.context.commit;<br>
+}<br>
+return typeof val === &quot;function&quot;<br>
+? val.apply(this, [commit].concat(args))<br>
+: commit.apply(this.$store, [val].concat(args));<br>
+};<br>
+});<br>
+return res;<br>
+});</p>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>
+<p>Reduce the code which written in Vue.js for getting the getters</p>
+</li>
+<li>
+<p>@param {String} [namespace] - Module's namespace</p>
+</li>
+<li>
+<p>@param {Object|Array} getters</p>
+</li>
+<li>
+<p>@return {Object}<br>
+*/<br>
+var mapGetters = normalizeNamespace(function(namespace, getters) {<br>
+var res = {};<br>
+normalizeMap(getters).forEach(function(ref) {<br>
+var key = ref.key;<br>
+var val = ref.val;</p>
+<p>// The namespace has been mutated by normalizeNamespace<br>
+val = namespace + val;<br>
+res[key] = function mappedGetter() {<br>
+if (<br>
+namespace &amp;&amp;<br>
+!getModuleByNamespace(this.$store, &quot;mapGetters&quot;, namespace)<br>
+) {<br>
+return;<br>
+}<br>
+if (!(val in this.$store.getters)) {<br>
+console.error(&quot;[vuex] unknown getter: &quot; + val);<br>
+return;<br>
+}<br>
+return this.$store.getters[val];<br>
+};<br>
+// mark vuex getter for devtools<br>
+res[key].vuex = true;<br>
+});<br>
+return res;<br>
+});</p>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>
+<p>Reduce the code which written in Vue.js for dispatch the action</p>
+</li>
+<li>
+<p>@param {String} [namespace] - Module's namespace</p>
+</li>
+<li>
+<p>@param {Object|Array} actions # Object's item can be a function which accept <code>dispatch</code> function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.</p>
+</li>
+<li>
+<p>@return {Object}<br>
+*/<br>
+var mapActions = normalizeNamespace(function(namespace, actions) {<br>
+var res = {};<br>
+normalizeMap(actions).forEach(function(ref) {<br>
+var key = ref.key;<br>
+var val = ref.val;</p>
+<p>res[key] = function mappedAction() {<br>
+var args = [],<br>
+len = arguments.length;<br>
+while (len--) args[len] = arguments[len];</p>
+<p>// get dispatch function from store<br>
+var dispatch = this.$store.dispatch;<br>
+if (namespace) {<br>
+var module = getModuleByNamespace(<br>
+this.$store,<br>
+&quot;mapActions&quot;,<br>
+namespace<br>
+);<br>
+if (!module) {<br>
+return;<br>
+}<br>
+dispatch = module.context.dispatch;<br>
+}<br>
+return typeof val === &quot;function&quot;<br>
+? val.apply(this, [dispatch].concat(args))<br>
+: dispatch.apply(this.$store, [val].concat(args));<br>
+};<br>
+});<br>
+return res;<br>
+});</p>
+</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Rebinding namespace param for mapXXX function in special scoped, and return them by simple object</li>
+<li>@param {String} namespace</li>
+<li>@return {Object}<br>
+*/<br>
+var createNamespacedHelpers = function(namespace) {<br>
+return {<br>
+mapState: mapState.bind(null, namespace),<br>
+mapGetters: mapGetters.bind(null, namespace),<br>
+mapMutations: mapMutations.bind(null, namespace),<br>
+mapActions: mapActions.bind(null, namespace)<br>
+};<br>
+};</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Normalize the map</li>
+<li>normalizeMap([1, 2, 3]) =&gt; [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]</li>
+<li>normalizeMap({a: 1, b: 2, c: 3}) =&gt; [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]</li>
+<li>@param {Array|Object} map</li>
+<li>@return {Object}<br>
+*/<br>
+function normalizeMap(map) {<br>
+return Array.isArray(map)<br>
+? map.map(function(key) {<br>
+return { key: key, val: key };<br>
+})<br>
+: Object.keys(map).map(function(key) {<br>
+return { key: key, val: map[key] };<br>
+});<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.</li>
+<li>@param {Function} fn</li>
+<li>@return {Function}<br>
+*/<br>
+function normalizeNamespace(fn) {<br>
+return function(namespace, map) {<br>
+if (typeof namespace !== &quot;string&quot;) {<br>
+map = namespace;<br>
+namespace = &quot;&quot;;<br>
+} else if (namespace.charAt(namespace.length - 1) !== &quot;/&quot;) {<br>
+namespace += &quot;/&quot;;<br>
+}<br>
+return fn(namespace, map);<br>
+};<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>Search a special module from store by namespace. if module not exist, print error message.</li>
+<li>@param {Object} store</li>
+<li>@param {String} helper</li>
+<li>@param {String} namespace</li>
+<li>@return {Object}<br>
+*/<br>
+function getModuleByNamespace(store, helper, namespace) {<br>
+var module = store._modulesNamespaceMap[namespace];<br>
+if (!module) {<br>
+console.error(<br>
+&quot;[vuex] module namespace not found in &quot; + helper + &quot;(): &quot; + namespace<br>
+);<br>
+}<br>
+return module;<br>
+}</li>
+</ul>
+<p>var index = {<br>
+Store: Store,<br>
+install: install,<br>
+version: &quot;3.1.1&quot;,<br>
+mapState: mapState,<br>
+mapMutations: mapMutations,<br>
+mapGetters: mapGetters,<br>
+mapActions: mapActions,<br>
+createNamespacedHelpers: createNamespacedHelpers<br>
+};</p>
+<p>return index;<br>
+});</p>
+<pre><code></code></pre>
+<div class="page-nav"><a class="next" href="html-html5.html">html5→</a></div>
+        </div>
+    </main>
+        </div>
+        <script>
+        const pageName = location.href.replace(/^(.*)\/([^/]*).html$/i, "$2");
+            const menu = document.querySelector('.sidebar ul');
+            const current = menu.querySelector('a[href="' + pageName + '.html"]');
+            const list = document.querySelectorAll('.sidebar li');
+            const cache = {};
+            list.forEach((item, index) => {
+                const ul = item.querySelector('ul');
+                if (ul) {
+                    const holder = item.firstElementChild;
+                    holder.setAttribute('data-holder', index);
+                    holder.setAttribute('class', 'holder');
+                    ul.setAttribute('data-menu', index);
+                    cache[index] = ul;
+                }
+            })
+            if (current) {
+                current.setAttribute('class', 'cur');
+                displayParent(current);
+            }
+            menu.addEventListener('click', (e) => {
+                const target = e.target;
+                const holder = target.getAttribute('data-holder');
+                if (holder) {
+                    const block = cache[holder].style.display === 'block';
+                    cache[holder].style.display = block ? 'none' : 'block';
+                    target.setAttribute('class', block ? 'holder' : 'holder active');
+                }
+            });
+
+            function displayParent(ele) {
+                const ul = ele.parentElement.parentElement;
+                if (ul && ul.getAttribute('data-menu')) {
+                    ul.style.display = 'block';
+                    ul.previousElementSibling.setAttribute('class', 'holder active');
+                    displayParent(ul);
+                }
+            }
+        </script>
+        <script src="../assets/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    </body>
+    </html>

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>["1", "2", "3"].map(parseInt) 返回值是什么？</title>
+        <title>怎么监视对 DOM 树的变化？</title>
         <link rel="stylesheet" href="../assets/style.css">
     </head>
     
@@ -15,23 +15,79 @@
     <ul class="ul-0"><li class="li-1"><p class="a-2">前端面试</p></li><li class="li-1"><p class="a-2">html/css</p><ul class="ul-2"><li class="li-3"><a href="html-html5.html" class="a-4">html5</a></li></ul></li><li class="li-1"><p class="a-2">javascrpt</p><ul class="ul-2"><li class="li-3"><a href="javascript-reduce.html" class="a-4">array reduce 返回值是什么？</a></li><li class="li-3"><a href="javascript-vueprototype.html" class="a-4">vue 组件挂载到全局方法？</a></li><li class="li-3"><a href="javascript-constructor.html" class="a-4">构造函数的返回值是什么？</a></li><li class="li-3"><a href="javascript-vueinsertcomponent.html" class="a-4">怎么通过编程的方式而不是<'my-component'>的方式动态的插入 Vue components?</a></li><li class="li-3"><a href="javascript-object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="javascript-null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="javascript-array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="javascript-debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="javascript-object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li><li class="li-3"><a href="javascript-mutationobserver.html" class="a-4">怎么监视对 DOM 树的变化</a></li></ul></li><li class="li-1"><p class="a-2">基础知识</p></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="pattern-factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="pattern-abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="pattern-singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="pattern-decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="pattern-proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="pattern-publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="pattern-state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="pattern-strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li></ul>
     </aside>
         <main class="page"><div class="page-bd">
-        <h1>[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt) 返回值是什么？</h1>
-<pre><code class="language-javascript"><span class="hljs-keyword">var</span> new_array = arr.map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callback</span>(<span class="hljs-params">currentValue[, index[, array]]</span>) </span>{
-<span class="hljs-comment">// Return element for new_array </span>
-}[, thisArg])
-</code></pre>
-<h3>结果</h3>
-<details><summary>点击查看结果</summary>
-<pre><code class="language-javascript"><span class="hljs-number">1</span>, <span class="hljs-literal">NaN</span>, <span class="hljs-literal">NaN</span>
-</code></pre>
-</details>
-<hr>
-<h3>延伸</h3>
+        <h1>怎么监视对 DOM 树的变化？</h1>
+<p>MutationObserver</p>
+<blockquote>
+<p>DOM 规范的 MutationObserver()构造函数 - 是 MutationObserver 接口内容的一部分 - 创建并返回一个新的观察者，它在 DOM 事件触发时调用指定的回调函数。DOM 的观察不会立即启动;而必须先调用 observe() 方法来确定要监听哪一部分的 DOM 以及要注意哪些更改</p>
+</blockquote>
+<h2>options</h2>
 <ul>
-<li>map语法</li>
-<li>parseInt(string, radix) 当未指定radix时，不同的实现会产生不同的结果，通常认为其值默认为10</li>
+<li>childList: 子元素的变动</li>
+<li>attributes: 属性的变动</li>
+<li>characterData: 节点内容或节点文本的变动</li>
+<li>subtree: 所有下属节点（包括子节点和子节点的子节点）的变动</li>
+<li>attributeOldValueL: 值为 true 或者为 false。如果为 true，则表示需要记录变动前的属性值</li>
+<li>characterDataOldValue: 值为 true 或者为 false。如果为 true，则表示需要记录变动前的数据值</li>
+<li>attributesFilter: 值为一个数组，表示需要观察的特定属性（比如['class', 'str']）</li>
 </ul>
-<div class="page-nav"><a class="next" href="javascript-reduce.html">array reduce 返回值是什么？→</a></div>
+<h2>返回值</h2>
+<blockquote>
+<p>当变动发生时回调函数会将变动记录 MutationRecord 对象传入，MutationRecord 包含了 DOM 的相关信息，有如下属性</p>
+</blockquote>
+<ul>
+<li>type: 观察的变动类型（attribute、characterData 或者 childList）</li>
+<li>target: 发生变动的 DOM 对象</li>
+<li>addedNodes: 新增的 DOM 对象</li>
+<li>removeNodes: 删除的 DOM 对象</li>
+<li>previousSibling: 前一个同级的 DOM 对象，如果没有则返回 null</li>
+<li>nextSibling: 下一个同级的 DOM 对象，如果没有就返回 null</li>
+<li>attributeName: 发生变动的属性。如果设置了 attributeFilter，则只返回预先指定的属性</li>
+<li>oldValue: 变动前的值。这个属性只对 attribute 和 characterData 变动有效，如果发生 childList 变动，则返回 null</li>
+</ul>
+<h2>方法</h2>
+<ul>
+<li>disconnect() 阻止 MutationObserver 实例继续接收的通知，直到再次调用其 observe()方法</li>
+<li>observe() 配置 MutationObserver 在 DOM 更改匹配给定选项时，通过其回调函数开始接收通知。</li>
+<li>takeRecords() takeRecords 方法是用来取出记录队列中的记录。它的一个作用是，比如你对一个节点的操作你不想马上就做出反应，过段时间在显示改变了节点的内容。</li>
+</ul>
+<pre><code class="language-javascript"><span class="hljs-keyword">let</span> targetNode = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"targetNode"</span>);
+<span class="hljs-keyword">let</span> config = {
+  <span class="hljs-attr">attributes</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">childList</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">subtree</span>: <span class="hljs-literal">true</span>
+};
+<span class="hljs-keyword">const</span> mutationCallback = <span class="hljs-function"><span class="hljs-params">mutationsList</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.info(mutationsList);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> mutation <span class="hljs-keyword">of</span> mutationsList) {
+    <span class="hljs-keyword">let</span> type = mutation.type;
+    <span class="hljs-keyword">switch</span> (type) {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">"childList"</span>:
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"A child node has been added or removed."</span>);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">"attributes"</span>:
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`The <span class="hljs-subst">${mutation.attributeName}</span> attribute was modified.`</span>);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">"subtree"</span>:
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`The subtree was modified.`</span>);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">break</span>;
+    }
+  }
+};
+
+<span class="hljs-keyword">let</span> observer = <span class="hljs-keyword">new</span> MutationObserver(mutationCallback);
+<span class="hljs-keyword">let</span> record;
+observer.observe(targetNode, config);
+
+targetNode.onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  targetNode.textContent = <span class="hljs-number">0</span>;
+  record = observer.takeRecords(); <span class="hljs-comment">//此时record保存了改变记录列表</span>
+  targetNode.textContent = <span class="hljs-number">1</span>;
+  <span class="hljs-built_in">console</span>.info(record);
+};
+</code></pre>
+<div class="page-nav"><a class="pre" href="javascript-object_defineproperty.html">←Object.defineProperty 了解有多少？什么是属性描述符？</a><a class="next" href="pattern-factory.html">工厂模式→</a></div>
         </div>
     </main>
         </div>
