@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>array reduce 返回值是什么？</title>
+        <title>从输入 URL 到页面加载完成的过程中都发生了什么事情？</title>
         <link rel="stylesheet" href="../assets/style.css">
     </head>
     
@@ -22,32 +22,87 @@
     <ul class="ul-0"><li class="li-1"><p class="a-2">前端面试</p></li><li class="li-1"><p class="a-2">html/css</p><ul class="ul-2"><li class="li-3"><a href="html-html5.html" class="a-4">html5</a></li></ul></li><li class="li-1"><p class="a-2">javascrpt</p><ul class="ul-2"><li class="li-3"><a href="javascript-render.html" class="a-4">从输入 URL 到页面加载完成的过程中都发生了什么事情？</a></li><li class="li-3"><a href="javascript-clone.html" class="a-4">深拷贝和浅拷贝？</a></li><li class="li-3"><a href="javascript-isnan.html" class="a-4">怎么判断一个变量是不是 NaN?</a></li><li class="li-3"><a href="javascript-reduce.html" class="a-4">array reduce 返回值是什么？</a></li><li class="li-3"><a href="javascript-vueprototype.html" class="a-4">vue 组件挂载到全局方法？</a></li><li class="li-3"><a href="javascript-constructor.html" class="a-4">构造函数的返回值是什么？</a></li><li class="li-3"><a href="javascript-vueinsertcomponent.html" class="a-4">怎么通过编程的方式而不是<'my-component'>的方式动态的插入 Vue components?</a></li><li class="li-3"><a href="javascript-object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="javascript-null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="javascript-array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="javascript-debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="javascript-object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li><li class="li-3"><a href="javascript-mutationobserver.html" class="a-4">怎么监视对 DOM 树的变化</a></li></ul></li><li class="li-1"><p class="a-2">基础知识</p></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="pattern-factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="pattern-abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="pattern-singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="pattern-decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="pattern-proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="pattern-publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="pattern-state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="pattern-strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li></ul>
     </aside>
         <main class="page"><div class="page-bd">
-        <h1>array reduce 返回值是什么？</h1>
-<blockquote>
-<p>如果数组为空且没有提供 initialValue，会抛出 TypeError 。</p>
-</blockquote>
-<pre><code class="language-javascript">[].reduce(<span class="hljs-function">(<span class="hljs-params">obj, key</span>)=&gt;</span>obj[key])
+        <h1>从输入 URL 到页面加载完成的过程中都发生了什么事情？</h1>
+<p>呈现引擎将开始解析 HTML 文档，并将各标记逐个转化成“内容树”上的 DOM 节点。同时也会解析外部 CSS 文件以及样式元素中的样式数据。HTML 中这些带有视觉指令的样式信息将用于创建另一个树结构：呈现树。</p>
+<p>呈现树包含多个带有视觉属性（如颜色和尺寸）的矩形。这些矩形的排列顺序就是它们将在屏幕上显示的顺序。</p>
+<p>呈现树构建完毕之后，进入“布局”处理阶段，也就是为每个节点分配一个应出现在屏幕上的确切坐标。下一个阶段是绘制 - 呈现引擎会遍历呈现树，由用户界面后端层将每个节点绘制出来。</p>
+<p>需要着重指出的是，这是一个渐进的过程。为达到更好的用户体验，呈现引擎会力求尽快将内容显示在屏幕上。它不必等到整个 HTML 文档解析完毕之后，就会开始构建呈现树和设置布局。在不断接收和处理来自网络的其余内容的同时，呈现引擎会将部分内容解析并显示出来。</p>
+<div class="mermaid">graph LR
+    A(HTML) --> |HTML Parser| C(DOM Tree)
+    C(DOM Tree) --> D(Attachment)
 
-VM85:<span class="hljs-number">1</span> Uncaught <span class="hljs-built_in">TypeError</span>: Reduce <span class="hljs-keyword">of</span> empty array <span class="hljs-keyword">with</span> no initial value
-    at <span class="hljs-built_in">Array</span>.reduce (&lt;anonymous&gt;)
-    at &lt;anonymous&gt;:1:4
+    E(Style Sheets) -->  |CSS Parser| J(Style Rules)
+    J(Style Rules) --> D(Attachment)
 
-</code></pre>
+    D(Attachment) --> H((Render Tree))
+    H((Render Tree)) --> I((Layout))
+    I((Layout)) --> H((Render Tree))
+    H((Render Tree)) --> G(Paiting)
+    G(Paiting) --> K(Display)
+
+    classDef a fill:#ceffd0;
+    classDef b fill:#ffcf99;
+    classDef c fill:#fefe9a;
+    class A a;
+    class C b;
+    class D c;</div><h2>呈现树和 DOM 树的关系</h2>
+<h6>呈现树</h6>
 <blockquote>
-<p>如果数组仅有一个元素（无论位置如何）并且没有提供 initialValue，<br>
-或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行。</p>
+<p>这是由可视化元素按照其显示顺序而组成的树，也是文档的可视化表示。它的作用是让您按照正确的顺序绘制内容。</p>
 </blockquote>
-<pre><code class="language-javascript"><span class="hljs-comment">// reduce() 没有初始值</span>
-[{ <span class="hljs-attr">x</span>: <span class="hljs-number">22</span> }].reduce(maxCallback); <span class="hljs-comment">// { x: 22 }</span>
-[].reduce(maxCallback); <span class="hljs-comment">// TypeError</span>
-</code></pre>
+<h6>呈现器</h6>
+<ul>
+<li>代表了一个矩形的区域，通常对应于相关节点的 CSS 框，它包含诸如宽度、高度和位置等几何信息。</li>
+<li>框的类型会受到与节点相关的“display”样式属性的影响</li>
+<li>元素类型也是考虑因素之一，例如表单控件和表格都对应特殊的框架</li>
+</ul>
+<h6>关系</h6>
 <blockquote>
-<p>这是更好的方案，即使传入空数组或更大数组也可正常执行</p>
+<p>呈现器是和 DOM 元素相对应的，但并非一一对应。非可视化的 DOM 元素不会插入呈现树中，例如“head”元素。如果元素的 display 属性值为“none”<br>
+有一些 DOM 元素对应多个可视化对象。它们往往是具有复杂结构的元素，无法用单一的矩形来描述。例如，“select”元素有 3 个呈现器<br>
+有一些呈现对象的位置与 DOM 节点不同。浮动定位和绝对定位的元素就是这样，它们处于正常的流程之外，放置在树中的其他地方，并映射到真正的框架，而放在原位的是占位框架。</p>
 </blockquote>
-<pre><code class="language-javascript"><span class="hljs-comment">// map/reduce; 这是更好的方案，即使传入空数组或更大数组也可正常执行</span>
-[{ <span class="hljs-attr">x</span>: <span class="hljs-number">22</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">42</span> }].map(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.x).reduce(maxCallback2, -<span class="hljs-literal">Infinity</span>);
-</code></pre>
-<div class="page-nav"><a class="pre" href="javascript-isnan.html">←怎么判断一个变量是不是 NaN?</a><a class="next" href="javascript-vueprototype.html">vue 组件挂载到全局方法？→</a></div>
+<h3>构建呈现树的流程</h3>
+<blockquote>
+<p>解析样式和创建呈现器的过程称为“附加”。每个 DOM 节点都有一个“attach”方法。附加是同步进行的，将节点插入 DOM 树需要调用新的节点“attach”方法。</p>
+</blockquote>
+<p>特异性</p>
+<ul>
+<li>如果声明来自于“style”属性，而不是带有选择器的规则，则记为 1，否则记为 0 (= a)</li>
+<li>ID 属性的个数 (= b)</li>
+<li>其他属性和伪类的个数 (= c)</li>
+<li>元素名称和伪元素的个数 (= d)<br>
+将四个数字按 a-b-c-d 这样连接起来（位于大数进制的数字系统中），构成特异性。</li>
+</ul>
+<h2>布局 Layout || reflow</h2>
+<p>呈现器在创建完成并添加到呈现树时，并不包含位置和大小信息。计算这些值的过程称为布局或重排。</p>
+<p>HTML 采用基于流的布局模型，这意味着大多数情况下只要一次遍历就能计算出几何信息。处于流中靠后位置元素通常不会影响靠前位置元素的几何特征，因此布局可以按从左至右、从上至下的顺序遍历文档。但是也有例外情况，比如 HTML table 的计算就需要不止一次的遍历<br>
+所有的呈现器都有一个“layout”或者“reflow”方法，每一个呈现器都会调用其需要进行布局的子代的 layout 方法。</p>
+<h4>Dirty 位系统</h4>
+<blockquote>
+<p>为避免对所有细小更改都进行整体布局，浏览器采用了一种“dirty 位”系统。如果某个呈现器发生了更改，或者将自身及其子代标注为“dirty”，则需要进行布局。</p>
+</blockquote>
+<h4>全局布局和增量布局</h4>
+<p>全局布局是指触发了整个呈现树范围的布局，触发原因可能包括：</p>
+<ul>
+<li>影响所有呈现器的全局样式更改，例如字体大小更改。</li>
+<li>屏幕大小调整。<br>
+当呈现器为 dirty 时，会异步触发增量布局。例如，当来自网络的额外内容添加到 DOM 树之后，新的呈现器附加到了呈现树中。</li>
+</ul>
+<h4>异步布局和同步布局</h4>
+<p>增量布局是异步执行的。<br>
+请求样式信息（例如“offsetHeight”）的脚本可同步触发增量布局。<br>
+全局布局往往是同步触发的。<br>
+有时，当初始布局完成之后，如果一些属性（如滚动位置）发生变化，布局就会作为回调而触发。</p>
+<h2>绘制</h2>
+<p>在绘制阶段，系统会遍历呈现树，并调用呈现器的“paint”方法，将呈现器的内容显示在屏幕上。</p>
+<h3>全局绘制和增量绘制</h3>
+<h3>呈现引擎的线程</h3>
+<p>呈现引擎采用了单线程。几乎所有操作（除了网络操作）都是在单线程中进行的。</p>
+<h3>事件循环</h3>
+<p>浏览器的主线程是事件循环。它是一个无限循环，永远处于接受处理状态，并等待事件（如布局和绘制事件）发生，并进行处理。</p>
+<p>https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/#The_rendering_engine</p>
+<div class="page-nav"><a class="pre" href="html-html5.html">←html5</a><a class="next" href="javascript-clone.html">深拷贝和浅拷贝？→</a></div>
         </div>
     </main>
         </div>

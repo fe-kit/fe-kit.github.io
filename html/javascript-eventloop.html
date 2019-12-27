@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>array reduce 返回值是什么？</title>
+        <title>EventLoop</title>
         <link rel="stylesheet" href="../assets/style.css">
     </head>
     
@@ -22,32 +22,47 @@
     <ul class="ul-0"><li class="li-1"><p class="a-2">前端面试</p></li><li class="li-1"><p class="a-2">html/css</p><ul class="ul-2"><li class="li-3"><a href="html-html5.html" class="a-4">html5</a></li></ul></li><li class="li-1"><p class="a-2">javascrpt</p><ul class="ul-2"><li class="li-3"><a href="javascript-render.html" class="a-4">从输入 URL 到页面加载完成的过程中都发生了什么事情？</a></li><li class="li-3"><a href="javascript-clone.html" class="a-4">深拷贝和浅拷贝？</a></li><li class="li-3"><a href="javascript-isnan.html" class="a-4">怎么判断一个变量是不是 NaN?</a></li><li class="li-3"><a href="javascript-reduce.html" class="a-4">array reduce 返回值是什么？</a></li><li class="li-3"><a href="javascript-vueprototype.html" class="a-4">vue 组件挂载到全局方法？</a></li><li class="li-3"><a href="javascript-constructor.html" class="a-4">构造函数的返回值是什么？</a></li><li class="li-3"><a href="javascript-vueinsertcomponent.html" class="a-4">怎么通过编程的方式而不是<'my-component'>的方式动态的插入 Vue components?</a></li><li class="li-3"><a href="javascript-object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="javascript-null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="javascript-array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="javascript-debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="javascript-object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li><li class="li-3"><a href="javascript-mutationobserver.html" class="a-4">怎么监视对 DOM 树的变化</a></li></ul></li><li class="li-1"><p class="a-2">基础知识</p></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="pattern-factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="pattern-abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="pattern-singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="pattern-decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="pattern-proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="pattern-publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="pattern-state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="pattern-strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li></ul>
     </aside>
         <main class="page"><div class="page-bd">
-        <h1>array reduce 返回值是什么？</h1>
+        <h1>EventLoop</h1>
+<h2>macroTask</h2>
+<p>任务源：</p>
+<ul>
+<li>script</li>
+<li>事件</li>
+<li>Dom 交互</li>
+<li>I/O</li>
+<li>UI Render</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>requestAnimationFrame</li>
+<li>.....</li>
+</ul>
+<h2>microTask</h2>
 <blockquote>
-<p>如果数组为空且没有提供 initialValue，会抛出 TypeError 。</p>
+<p>主线程会去检查该 macroTask 下的 microTask 是否为空，如果不为空，则按照时间顺序从早到晚取出，如果途中有遇到新的 microTask, 那么会继续将该 microTask 推入到 microTask 队列里</p>
 </blockquote>
-<pre><code class="language-javascript">[].reduce(<span class="hljs-function">(<span class="hljs-params">obj, key</span>)=&gt;</span>obj[key])
-
-VM85:<span class="hljs-number">1</span> Uncaught <span class="hljs-built_in">TypeError</span>: Reduce <span class="hljs-keyword">of</span> empty array <span class="hljs-keyword">with</span> no initial value
-    at <span class="hljs-built_in">Array</span>.reduce (&lt;anonymous&gt;)
-    at &lt;anonymous&gt;:1:4
-
-</code></pre>
-<blockquote>
-<p>如果数组仅有一个元素（无论位置如何）并且没有提供 initialValue，<br>
-或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行。</p>
-</blockquote>
-<pre><code class="language-javascript"><span class="hljs-comment">// reduce() 没有初始值</span>
-[{ <span class="hljs-attr">x</span>: <span class="hljs-number">22</span> }].reduce(maxCallback); <span class="hljs-comment">// { x: 22 }</span>
-[].reduce(maxCallback); <span class="hljs-comment">// TypeError</span>
-</code></pre>
-<blockquote>
-<p>这是更好的方案，即使传入空数组或更大数组也可正常执行</p>
-</blockquote>
-<pre><code class="language-javascript"><span class="hljs-comment">// map/reduce; 这是更好的方案，即使传入空数组或更大数组也可正常执行</span>
-[{ <span class="hljs-attr">x</span>: <span class="hljs-number">22</span> }, { <span class="hljs-attr">x</span>: <span class="hljs-number">42</span> }].map(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.x).reduce(maxCallback2, -<span class="hljs-literal">Infinity</span>);
-</code></pre>
-<div class="page-nav"><a class="pre" href="javascript-isnan.html">←怎么判断一个变量是不是 NaN?</a><a class="next" href="javascript-vueprototype.html">vue 组件挂载到全局方法？→</a></div>
+<h2>UI Render(重点)</h2>
+<p>伴随着 miscroTask 队列的清空，主线程就会执行 UI Render, 也就是渲染界面，但是浏览器它并不会每次在 UI Render 任务下一定会渲染界面，视情况而言，现在主流浏览器一般都是按照 60HZ 也就是 16.7ms 刷新频率进行渲染(不是精确估量)，一个 macroTask 通常是小于 16.7ms, 所以浏览器每次会根据情况进行渲染</p>
+<h2>一个完整的事件循环</h2>
+<ol>
+<li>从 macroTask 队列里取出最早添加进去的</li>
+<li>开始执行 task, 途中如果遇到新的 macroTask，就会将其添加到 macroTask 队列的最后面</li>
+<li>执行完 macroTask 之后，event loop 会去寻找 microTask 队列</li>
+<li>同样的道理，如果途中遇到新的 microTask，将其放入该 macroTask 下的 microTask 队列最后面</li>
+<li>执行完 microTask，会执行 UI Render macroTask</li>
+<li>浏览器会根据现有情况决定是否更新 DOM，通常是按照 60HZ 的频率去更新</li>
+<li>至此，一个 event loop 结束了</li>
+</ol>
+<h2>nextTick</h2>
+<p>nextTick 的作用是将收集 Watcher 从队列中一个个取出，并且更改数据，来一次性渲染 DOM, 我们知道操作 DOM 的代价是昂贵的， 浏览器打开一个网页后会开启一个进程，进程是由线程组成的，<br>
+那么在打开的同时，</p>
+<ol>
+<li>GUI 渲染线程</li>
+<li>js 引擎线程(主线程)</li>
+<li>EventLoop 轮训处理线程</li>
+<li>其他线程，例如网络<br>
+跨线程操作代价是昂贵的，所以做到一次性渲染 Dom,可以有效的优化性能！！</li>
+</ol>
+<div class="page-nav"><a class="next" href="html-html5.html">html5→</a></div>
         </div>
     </main>
         </div>
