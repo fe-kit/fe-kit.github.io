@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title></title>
+        <link rel="stylesheet" href="../assets/style.css">
+    </head>
+    
+    <body>
+        <div class="app">
+        <header class="navbar"><p><a class="logo" href="/">fe-cookbook</a></p>
+<div class="menus">
+<a class="item" href="/">首页</a>
+</div>
+</header>
+        <aside class="sidebar">
+    <ul class="ul-0"><li class="li-1"><p class="a-2">前端面试</p></li><li class="li-1"><p class="a-2">html/css</p><ul class="ul-2"><li class="li-3"><a href="html-html5.html" class="a-4">html5</a></li></ul></li><li class="li-1"><p class="a-2">javascrpt</p><ul class="ul-2"><li class="li-3"><a href="javascript-render.html" class="a-4">从输入 URL 到页面加载完成的过程中都发生了什么事情？</a></li><li class="li-3"><a href="javascript-clone.html" class="a-4">深拷贝和浅拷贝？</a></li><li class="li-3"><a href="javascript-isnan.html" class="a-4">怎么判断一个变量是不是 NaN?</a></li><li class="li-3"><a href="javascript-reduce.html" class="a-4">array reduce 返回值是什么？</a></li><li class="li-3"><a href="javascript-vueprototype.html" class="a-4">vue 组件挂载到全局方法？</a></li><li class="li-3"><a href="javascript-constructor.html" class="a-4">构造函数的返回值是什么？</a></li><li class="li-3"><a href="javascript-vueinsertcomponent.html" class="a-4">怎么通过编程的方式而不是<'my-component'>的方式动态的插入 Vue components?</a></li><li class="li-3"><a href="javascript-object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="javascript-null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="javascript-array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="javascript-debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="javascript-object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li><li class="li-3"><a href="javascript-mutationobserver.html" class="a-4">怎么监视对 DOM 树的变化</a></li><li class="li-3"><a href="javascript-vueerror.html" class="a-4">Vue 是怎么进行错误处理的？</a></li><li class="li-3"><a href="javascript-esmodules.html" class="a-4">ES6 Modules？</a></li><li class="li-3"><a href="javascript-bind.html" class="a-4">实现一个 bind 函数？</a></li></ul></li></ul><ul class="ul-0"><li class="li-1"><p class="a-2">基础知识</p></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="pattern-factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="pattern-abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="pattern-singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="pattern-decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="pattern-proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="pattern-publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="pattern-state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="pattern-strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li><li class="li-1"><p class="a-2">webpack</p><ul class="ul-2"><li class="li-3"><a href="webpack-index.html" class="a-4">webpack</a></li></ul></li></ul>
+    </aside>
+        <main class="page"><div class="page-bd">
+        <pre><code class="language-js">
+<span class="hljs-comment">/******/</span> (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">modules</span>) </span>{ <span class="hljs-comment">// modules模块数组[{moduleId:()=&gt;{}}]</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// The module cache</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-keyword">var</span> installedModules = {};
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// The require function</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__webpack_require__</span>(<span class="hljs-params">moduleId</span>) </span>{
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-comment">// Check if module is in cache</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">if</span>(installedModules[moduleId]) {
+<span class="hljs-comment">/******/</span> 			<span class="hljs-keyword">return</span> installedModules[moduleId].exports;
+<span class="hljs-comment">/******/</span> 		}
+<span class="hljs-comment">/******/</span> 		<span class="hljs-comment">// Create a new module (and put it into the cache)</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">var</span> <span class="hljs-built_in">module</span> = installedModules[moduleId] = {
+<span class="hljs-comment">/******/</span> 			i: moduleId,
+<span class="hljs-comment">/******/</span> 			l: <span class="hljs-literal">false</span>,
+<span class="hljs-comment">/******/</span> 			exports: {}
+<span class="hljs-comment">/******/</span> 		};
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-comment">// Execute the module function</span>
+<span class="hljs-comment">/******/</span> 		modules[moduleId].call(<span class="hljs-built_in">module</span>.exports, <span class="hljs-built_in">module</span>, <span class="hljs-built_in">module</span>.exports, __webpack_require__);
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-comment">// Flag the module as loaded</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-built_in">module</span>.l = <span class="hljs-literal">true</span>;
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-comment">// Return the exports of the module</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>.exports;
+<span class="hljs-comment">/******/</span> 	}
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// expose the modules object (__webpack_modules__)     // 暴露module数组缓存</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.m = modules;
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// expose the module cache 暴露module缓存</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.c = installedModules;
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// define getter function for harmony exports</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.d = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">exports, name, getter</span>) </span>{
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">if</span>(!__webpack_require__.o(exports, name)) {
+<span class="hljs-comment">/******/</span> 			<span class="hljs-built_in">Object</span>.defineProperty(exports, name, { <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">get</span>: getter });
+<span class="hljs-comment">/******/</span> 		}
+<span class="hljs-comment">/******/</span> 	};
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// define __esModule on exports</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.r = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">exports</span>) </span>{
+                <span class="hljs-comment">// exports.toString = "[object Module]"</span>
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Symbol</span> !== <span class="hljs-string">'undefined'</span> &amp;&amp; <span class="hljs-built_in">Symbol</span>.toStringTag) { 
+<span class="hljs-comment">/******/</span> 			<span class="hljs-built_in">Object</span>.defineProperty(exports, <span class="hljs-built_in">Symbol</span>.toStringTag, { <span class="hljs-attr">value</span>: <span class="hljs-string">'Module'</span> }); 
+<span class="hljs-comment">/******/</span> 		}
+<span class="hljs-comment">/******/</span> 		<span class="hljs-built_in">Object</span>.defineProperty(exports, <span class="hljs-string">'__esModule'</span>, { <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span> });
+<span class="hljs-comment">/******/</span> 	};
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// create a fake namespace object</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// mode &amp; 1: value is a module id, require it</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// mode &amp; 2: merge all properties of value into the ns</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// mode &amp; 4: return value when already ns object</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// mode &amp; 8|1: behave like require</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.t = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">value, mode</span>) </span>{
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">if</span>(mode &amp; <span class="hljs-number">1</span>) value = __webpack_require__(value);
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">if</span>(mode &amp; <span class="hljs-number">8</span>) <span class="hljs-keyword">return</span> value;
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">if</span>((mode &amp; <span class="hljs-number">4</span>) &amp;&amp; <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span> &amp;&amp; value &amp;&amp; value.__esModule) <span class="hljs-keyword">return</span> value;
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">var</span> ns = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);
+<span class="hljs-comment">/******/</span> 		__webpack_require__.r(ns);
+<span class="hljs-comment">/******/</span> 		<span class="hljs-built_in">Object</span>.defineProperty(ns, <span class="hljs-string">'default'</span>, { <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">value</span>: value });
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">if</span>(mode &amp; <span class="hljs-number">2</span> &amp;&amp; <span class="hljs-keyword">typeof</span> value != <span class="hljs-string">'string'</span>) <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> key <span class="hljs-keyword">in</span> value) __webpack_require__.d(ns, key, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">key</span>) </span>{ <span class="hljs-keyword">return</span> value[key]; }.bind(<span class="hljs-literal">null</span>, key));
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">return</span> ns;
+<span class="hljs-comment">/******/</span> 	};
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// getDefaultExport function for compatibility with non-harmony modules</span>
+<span class="hljs-comment">// 判断module是否为es模块，当__esModule为true的时候，标识module为es模块，那么module.a默认返回module.default，否则返回module</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.n = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">module</span>) </span>{
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">var</span> getter = <span class="hljs-built_in">module</span> &amp;&amp; <span class="hljs-built_in">module</span>.__esModule ?
+<span class="hljs-comment">/******/</span> 			<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDefault</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>[<span class="hljs-string">'default'</span>]; } :
+<span class="hljs-comment">/******/</span> 			<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getModuleExports</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>; };
+<span class="hljs-comment">/******/</span> 		__webpack_require__.d(getter, <span class="hljs-string">'a'</span>, getter);
+<span class="hljs-comment">/******/</span> 		<span class="hljs-keyword">return</span> getter;
+<span class="hljs-comment">/******/</span> 	};
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// Object.prototype.hasOwnProperty.call</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.o = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">object, property</span>) </span>{ <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(object, property); };
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// __webpack_public_path__</span>
+<span class="hljs-comment">/******/</span> 	__webpack_require__.p = <span class="hljs-string">""</span>;
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-comment">// Load entry module and return exports</span>
+<span class="hljs-comment">/******/</span> 	<span class="hljs-keyword">return</span> __webpack_require__(__webpack_require__.s = <span class="hljs-string">"Vtdi"</span>);
+<span class="hljs-comment">/******/</span> })
+<span class="hljs-comment">/************************************************************************/</span>
+<span class="hljs-comment">/******/</span> ({
+
+<span class="hljs-comment">/***/</span> <span class="hljs-string">"Vtdi"</span>:
+<span class="hljs-comment">/***/</span> (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">module, exports</span>) </span>{
+
+
+
+<span class="hljs-comment">/***/</span> })
+
+<span class="hljs-comment">/******/</span> });
+</code></pre>
+<div class="page-nav"><a class="pre" href="pattern-strategy.html">←策略模式</a></div>
+        </div>
+    </main>
+        </div>
+        <script>
+        const pageName = location.href.replace(/^(.*)\/([^/]*).html$/i, "$2");
+            const menu = document.querySelector('.sidebar ul');
+            const current = menu.querySelector('a[href="' + pageName + '.html"]');
+            const list = document.querySelectorAll('.sidebar li');
+            const cache = {};
+            list.forEach((item, index) => {
+                const ul = item.querySelector('ul');
+                if (ul) {
+                    const holder = item.firstElementChild;
+                    holder.setAttribute('data-holder', index);
+                    holder.setAttribute('class', 'holder');
+                    ul.setAttribute('data-menu', index);
+                    cache[index] = ul;
+                }
+            })
+            if (current) {
+                current.setAttribute('class', 'cur');
+                displayParent(current);
+            }
+            menu.addEventListener('click', (e) => {
+                const target = e.target;
+                const holder = target.getAttribute('data-holder');
+                if (holder) {
+                    const block = cache[holder].style.display === 'block';
+                    cache[holder].style.display = block ? 'none' : 'block';
+                    target.setAttribute('class', block ? 'holder' : 'holder active');
+                }
+            });
+
+            function displayParent(ele) {
+                const ul = ele.parentElement.parentElement;
+                if (ul && ul.getAttribute('data-menu')) {
+                    ul.style.display = 'block';
+                    ul.previousElementSibling.setAttribute('class', 'holder active');
+                    displayParent(ul);
+                }
+            }
+        </script>
+        <script src="../assets/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+    </body>
+    </html>
