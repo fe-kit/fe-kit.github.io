@@ -56,50 +56,19 @@ fn.bind(<span class="hljs-built_in">module</span>)();
 bind(fn, <span class="hljs-built_in">module</span>, <span class="hljs-string">"outter1"</span>, <span class="hljs-string">"outter2"</span>)(<span class="hljs-string">"innter1"</span>, <span class="hljs-string">"inner2"</span>);
 <span class="hljs-comment">// "42 {"0":"outter1","1":"outter2","2":"innter1","3":"inner2"}"</span>
 </code></pre>
+<hr>
+<h3>延伸</h3>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> write = <span class="hljs-built_in">document</span>.write;
+write(<span class="hljs-string">"hello word"</span>);
+</code></pre>
 <div class="page-nav"><a class="pre" href="javascript-esmodules.html">←ES6 Modules？</a><a class="next" href="pattern-factory.html">工厂模式→</a></div>
         </div>
     </main>
         </div>
-        <script>
-        const pageName = location.href.replace(/^(.*)\/([^/]*).html$/i, "$2");
-            const menu = document.querySelector('.sidebar ul');
-            const current = menu.querySelector('a[href="' + pageName + '.html"]');
-            const list = document.querySelectorAll('.sidebar li');
-            const cache = {};
-            list.forEach((item, index) => {
-                const ul = item.querySelector('ul');
-                if (ul) {
-                    const holder = item.firstElementChild;
-                    holder.setAttribute('data-holder', index);
-                    holder.setAttribute('class', 'holder');
-                    ul.setAttribute('data-menu', index);
-                    cache[index] = ul;
-                }
-            })
-            if (current) {
-                current.setAttribute('class', 'cur');
-                displayParent(current);
-            }
-            menu.addEventListener('click', (e) => {
-                const target = e.target;
-                const holder = target.getAttribute('data-holder');
-                if (holder) {
-                    const block = cache[holder].style.display === 'block';
-                    cache[holder].style.display = block ? 'none' : 'block';
-                    target.setAttribute('class', block ? 'holder' : 'holder active');
-                }
-            });
-
-            function displayParent(ele) {
-                const ul = ele.parentElement.parentElement;
-                if (ul && ul.getAttribute('data-menu')) {
-                    ul.style.display = 'block';
-                    ul.previousElementSibling.setAttribute('class', 'holder active');
-                    displayParent(ul);
-                }
-            }
-        </script>
+        <script  src="../assets/app.js"></script>
         <script src="../assets/mermaid.min.js"></script>
         <script>mermaid.initialize({startOnLoad:true});</script>
+        <footer class="footer"></footer>
+
     </body>
     </html>
