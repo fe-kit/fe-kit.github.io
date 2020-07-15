@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>axios 的默认配置</title>
+        <link rel="stylesheet" href="../assets/style.css">
+        <link rel="shortcut icon" href="https://fe-cookbook.github.io/favicon.png">
+    </head>
+    
+    <body>
+        <div class="app">
+        <header class="navbar"><p><a class="logo" href="/">fe-cookbook</a></p>
+<div class="menus">
+<a class="item" href="/">首页</a>
+</div>
+</header>
+        <aside class="sidebar">
+    <ul class="ul-0"><li class="li-1"><p class="a-2">cookbook</p></li><li class="li-1"><p class="a-2">axios</p><ul class="ul-2"><li class="li-3"><a href="axios-index.html" class="a-4">介绍</a></li><li class="li-3"><a href="axios-defaults.html" class="a-4">默认值</a></li><li class="li-3"><a href="axios-instance.html" class="a-4">实例化</a></li><li class="li-3"><a href="axios-constructor.html" class="a-4">构建函数</a></li></ul></li><li class="li-1"><p class="a-2">前端面试</p></li><li class="li-1"><p class="a-2">html/css</p><ul class="ul-2"><li class="li-3"><a href="html-html5.html" class="a-4">html5</a></li></ul></li><li class="li-1"><p class="a-2">javascrpt</p><ul class="ul-2"><li class="li-3"><a href="javascript-promis.html" class="a-4">promise 返回值问题？</a></li><li class="li-3"><a href="javascript-render.html" class="a-4">从输入 URL 到页面加载完成的过程中都发生了什么事情？</a></li><li class="li-3"><a href="javascript-clone.html" class="a-4">深拷贝和浅拷贝？</a></li><li class="li-3"><a href="javascript-isnan.html" class="a-4">怎么判断一个变量是不是 NaN?</a></li><li class="li-3"><a href="javascript-reduce.html" class="a-4">array reduce 返回值是什么？</a></li><li class="li-3"><a href="javascript-vueprototype.html" class="a-4">vue 组件挂载到全局方法？</a></li><li class="li-3"><a href="javascript-constructor.html" class="a-4">构造函数的返回值是什么？</a></li><li class="li-3"><a href="javascript-vueinsertcomponent.html" class="a-4">怎么通过编程的方式而不是<'my-component'>的方式动态的插入 Vue components?</a></li><li class="li-3"><a href="javascript-object_get.html" class="a-4">获取对象路径处的值\_.get(object, a.b.c, default)</a></li><li class="li-3"><a href="javascript-null.html" class="a-4">[typeof null, null instanceof Object]表达式的返回值是什么？</a></li><li class="li-3"><a href="javascript-array_map_parseint.html" class="a-4">["1", "2", "3"].map(parseInt) 返回值是什么？</a></li><li class="li-3"><a href="javascript-debounce.html" class="a-4">什么是防抖和节流？有什么区别？如何实现？</a></li><li class="li-3"><a href="javascript-object_defineproperty.html" class="a-4">Object.defineProperty 了解有多少？什么是属性描述符？</a></li><li class="li-3"><a href="javascript-mutationobserver.html" class="a-4">怎么监视对 DOM 树的变化</a></li><li class="li-3"><a href="javascript-vueerror.html" class="a-4">Vue 是怎么进行错误处理的？</a></li><li class="li-3"><a href="javascript-esmodules.html" class="a-4">ES6 Modules？</a></li><li class="li-3"><a href="javascript-bind.html" class="a-4">实现一个 bind 函数？</a></li></ul></li></ul><ul class="ul-0"><li class="li-1"><p class="a-2">基础知识</p></li><li class="li-1"><p class="a-2">设计模式</p><ul class="ul-2"><li class="li-3"><p class="a-4">创建型模式</p><ul class="ul-4"><li class="li-5"><a href="pattern-factory.html" class="a-6">工厂模式</a></li><li class="li-5"><a href="pattern-abstract-factory.html" class="a-6">抽象工厂模式</a></li><li class="li-5"><a href="pattern-singleton.html" class="a-6">单例模式</a></li><li class="li-5"><p class="a-6">[建造者模式]</p></li><li class="li-5"><p class="a-6">[原型模式]</p></li></ul></li><li class="li-3"><p class="a-4">结构型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[适配器模式]</p></li><li class="li-5"><p class="a-6">[桥接模式]</p></li><li class="li-5"><a href="pattern-decotators.html" class="a-6">装饰模式</a></li><li class="li-5"><p class="a-6">[组合模式]</p></li><li class="li-5"><p class="a-6">[外观模式]</p></li><li class="li-5"><p class="a-6">[享元模式]</p></li><li class="li-5"><a href="pattern-proxy.html" class="a-6">代理模式</a></li></ul></li><li class="li-3"><p class="a-4">行为型模式</p><ul class="ul-4"><li class="li-5"><p class="a-6">[模板方法模式]</p></li><li class="li-5"><p class="a-6">[命令模式]</p></li><li class="li-5"><p class="a-6">[迭代器模式]</p></li><li class="li-5"><a href="pattern-publishsubscribe.html" class="a-6">观察者模式</a></li><li class="li-5"><p class="a-6">[中介者模式]</p></li><li class="li-5"><p class="a-6">[备忘录模式]</p></li><li class="li-5"><p class="a-6">[解释器模式]</p></li><li class="li-5"><a href="pattern-state.html" class="a-6">状态模式</a></li><li class="li-5"><a href="pattern-strategy.html" class="a-6">策略模式</a></li><li class="li-5"><p class="a-6">[职责链模式]</p></li><li class="li-5"><p class="a-6">[访问者模式]</p></li></ul></li></ul></li><li class="li-1"><p class="a-2">webpack</p><ul class="ul-2"><li class="li-3"><a href="webpack-index.html" class="a-4">webpack</a></li></ul></li></ul>
+    </aside>
+        <main class="page"><div class="page-bd">
+        <h1>axios 的默认配置</h1>
+<blockquote>
+<p>lib/defaults.js</p>
+</blockquote>
+<ul>
+<li>axios 默认 Content-Type 和 Accept 是什么？</li>
+<li>axios 适配器是怎么区分浏览器和 node 环境的？</li>
+<li>axios 默认超时时间是多少？</li>
+<li>axios xsrf 默认值？</li>
+</ul>
+<h3>返回值</h3>
+<pre><code class="language-js">  adapter: ƒ xhrAdapter(config),
+  <span class="hljs-attr">headers</span>:{
+    <span class="hljs-attr">common</span>: {<span class="hljs-attr">Accept</span>: <span class="hljs-string">"application/json, text/plain, _/_"</span>},
+    <span class="hljs-attr">delete</span>: {},
+    <span class="hljs-attr">get</span>: {},
+    <span class="hljs-attr">head</span>: {},
+    <span class="hljs-attr">patch</span>: {Content-Type: <span class="hljs-string">"application/x-www-form-urlencoded"</span>},
+    <span class="hljs-attr">post</span>: {Content-Type: <span class="hljs-string">"application/x-www-form-urlencoded"</span>},
+    <span class="hljs-attr">put</span>: {Content-Type: <span class="hljs-string">"application/x-www-form-urlencoded"</span>}
+  },
+  <span class="hljs-attr">maxContentLength</span>: <span class="hljs-number">-1</span>,
+  <span class="hljs-attr">timeout</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">transformRequest</span>: [ƒ],
+  <span class="hljs-attr">transformResponse</span>: [ƒ],
+  <span class="hljs-attr">validateStatus</span>: ƒ validateStatus(status),
+  <span class="hljs-attr">xsrfCookieName</span>: <span class="hljs-string">"XSRF-TOKEN"</span>,
+  <span class="hljs-attr">xsrfHeaderName</span>: <span class="hljs-string">"X-XSRF-TOKEN"</span>,
+</code></pre>
+<details><summary>点击查看源码解读</summary>
+<pre><code class="language-javascript"><span class="hljs-meta">"use strict"</span>;
+
+<span class="hljs-keyword">var</span> utils = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./utils"</span>);
+<span class="hljs-keyword">var</span> normalizeHeaderName = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./helpers/normalizeHeaderName"</span>);
+<span class="hljs-comment">// post put patch默认Content-Type</span>
+<span class="hljs-keyword">var</span> DEFAULT_CONTENT_TYPE = {
+  <span class="hljs-string">"Content-Type"</span>: <span class="hljs-string">"application/x-www-form-urlencoded"</span>,
+};
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setContentTypeIfUnset</span>(<span class="hljs-params">headers, value</span>) </span>{
+  <span class="hljs-keyword">if</span> (
+    !utils.isUndefined(headers) &amp;&amp;
+    utils.isUndefined(headers[<span class="hljs-string">"Content-Type"</span>])
+  ) {
+    headers[<span class="hljs-string">"Content-Type"</span>] = value;
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getDefaultAdapter</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> adapter;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> XMLHttpRequest !== <span class="hljs-string">"undefined"</span>) {
+    <span class="hljs-comment">// 浏览器 XHR adapter</span>
+    adapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./adapters/xhr"</span>);
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (
+    <span class="hljs-keyword">typeof</span> process !== <span class="hljs-string">"undefined"</span> &amp;&amp;
+    <span class="hljs-built_in">Object</span>.prototype.toString.call(process) === <span class="hljs-string">"[object process]"</span>
+  ) {
+    <span class="hljs-comment">// node HTTP adapter</span>
+    adapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">"./adapters/http"</span>);
+  }
+  <span class="hljs-keyword">return</span> adapter;
+}
+<span class="hljs-comment">// ①默认defaults</span>
+<span class="hljs-keyword">var</span> defaults = {
+  <span class="hljs-attr">adapter</span>: getDefaultAdapter(),
+  <span class="hljs-attr">transformRequest</span>: [
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformRequest</span>(<span class="hljs-params">data, headers</span>) </span>{
+      normalizeHeaderName(headers, <span class="hljs-string">"Accept"</span>);
+      normalizeHeaderName(headers, <span class="hljs-string">"Content-Type"</span>);
+      <span class="hljs-keyword">if</span> (
+        utils.isFormData(data) ||
+        utils.isArrayBuffer(data) ||
+        utils.isBuffer(data) ||
+        utils.isStream(data) ||
+        utils.isFile(data) ||
+        utils.isBlob(data)
+      ) {
+        <span class="hljs-keyword">return</span> data;
+      }
+      <span class="hljs-keyword">if</span> (utils.isArrayBufferView(data)) {
+        <span class="hljs-keyword">return</span> data.buffer;
+      }
+      <span class="hljs-keyword">if</span> (utils.isURLSearchParams(data)) {
+        setContentTypeIfUnset(
+          headers,
+          <span class="hljs-string">"application/x-www-form-urlencoded;charset=utf-8"</span>
+        );
+        <span class="hljs-keyword">return</span> data.toString();
+      }
+      <span class="hljs-keyword">if</span> (utils.isObject(data)) {
+        setContentTypeIfUnset(headers, <span class="hljs-string">"application/json;charset=utf-8"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(data);
+      }
+      <span class="hljs-keyword">return</span> data;
+    },
+  ],
+
+  <span class="hljs-attr">transformResponse</span>: [
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformResponse</span>(<span class="hljs-params">data</span>) </span>{
+      <span class="hljs-comment">/*eslint no-param-reassign:0*/</span>
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> data === <span class="hljs-string">"string"</span>) {
+        <span class="hljs-keyword">try</span> {
+          data = <span class="hljs-built_in">JSON</span>.parse(data);
+        } <span class="hljs-keyword">catch</span> (e) {
+          <span class="hljs-comment">/* Ignore */</span>
+        }
+      }
+      <span class="hljs-keyword">return</span> data;
+    },
+  ],
+
+  <span class="hljs-comment">/**
+   * 终止请求的毫秒数，0为不设置
+   */</span>
+  timeout: <span class="hljs-number">0</span>,
+
+  <span class="hljs-attr">xsrfCookieName</span>: <span class="hljs-string">"XSRF-TOKEN"</span>,
+  <span class="hljs-attr">xsrfHeaderName</span>: <span class="hljs-string">"X-XSRF-TOKEN"</span>,
+
+  <span class="hljs-attr">maxContentLength</span>: <span class="hljs-number">-1</span>,
+
+  <span class="hljs-attr">validateStatus</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validateStatus</span>(<span class="hljs-params">status</span>) </span>{
+    <span class="hljs-keyword">return</span> status &gt;= <span class="hljs-number">200</span> &amp;&amp; status &lt; <span class="hljs-number">300</span>;
+  },
+};
+
+defaults.headers = {
+  <span class="hljs-attr">common</span>: {
+    <span class="hljs-attr">Accept</span>: <span class="hljs-string">"application/json, text/plain, */*"</span>,
+  },
+};
+
+utils.forEach([<span class="hljs-string">"delete"</span>, <span class="hljs-string">"get"</span>, <span class="hljs-string">"head"</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forEachMethodNoData</span>(<span class="hljs-params">method</span>) </span>{
+  defaults.headers[method] = {};
+});
+
+utils.forEach([<span class="hljs-string">"post"</span>, <span class="hljs-string">"put"</span>, <span class="hljs-string">"patch"</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forEachMethodWithData</span>(<span class="hljs-params">method</span>) </span>{
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+<span class="hljs-built_in">module</span>.exports = defaults;
+</code></pre>
+</details>
+<div class="page-nav"><a class="pre" href="axios-index.html">←介绍</a><a class="next" href="axios-instance.html">实例化→</a></div>
+        </div>
+    </main>
+        </div>
+        <script  src="../assets/app.js"></script>
+        <script src="../assets/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
+        <footer class="footer"></footer>
+
+    </body>
+    </html>
